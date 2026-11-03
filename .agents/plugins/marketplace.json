@@ -1,0 +1,16 @@
+{
+  "name": "k-deal-skill",
+  "interface": {
+    "displayName": "K Deal Skill"
+  },
+  "plugins": [
+    {
+      "name": "k-deal-skill",
+      "source": {
+        "source": "local",
+        "path": "./plugins/k-deal-skill"
+      },
+      "category": "Finance"
+    }
+  ]
+}

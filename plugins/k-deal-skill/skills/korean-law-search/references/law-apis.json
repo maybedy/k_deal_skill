@@ -1,0 +1,6973 @@
+{
+ "source": "법제처 국가법령정보 공동활용 OPEN API 활용가이드 (open.law.go.kr/LSO/openApi/guideList.do)",
+ "compiled_from": "https://github.com/SeoNaRu/lexguard-mcp api_crawler (MIT License, Copyright (c) 2026 SeoNaRu)",
+ "compiled_at": "2026-10-26",
+ "count": 159,
+ "apis": [
+  {
+   "id": 1,
+   "name": "현행법령(시행일) 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "eflaw",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "nw",
+     "required": false,
+     "description": "1: 연혁, 2: 시행예정, 3: 현행 (기본값: 전체) / 연혁+예정 : nw=1,2 / 예정+현행 : nw=2,3 / 연혁+현행 : nw=1,3 / 연혁+예정+현행 : nw=1,2,3"
+    },
+    {
+     "name": "LID",
+     "required": false,
+     "description": "법령ID (LID=830)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "시행일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "공포일자 검색"
+    },
+    {
+     "name": "ancYd",
+     "required": false,
+     "description": "공포일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancNo",
+     "required": false,
+     "description": "공포번호 범위 검색(306~400)"
+    },
+    {
+     "name": "rrClsCd",
+     "required": false,
+     "description": "법령 제개정 종류 (300201-제정 / 300202-일부개정 / 300203-전부개정 / 300204-폐지 / 300205-폐지제정 / 300206-일괄개정 / 300207-일괄폐지 / 300209-타법개정 / 300210-타법폐지 / 300208-기타)"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "법령의 공포번호 검색"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "현행법령(공포일) 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "law",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "법령의 공포일자 검색"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "시행일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancYd",
+     "required": false,
+     "description": "공포일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancNo",
+     "required": false,
+     "description": "공포번호 범위 검색(306~400)"
+    },
+    {
+     "name": "rrClsCd",
+     "required": false,
+     "description": "법령 제개정 종류 (300201-제정 / 300202-일부개정 / 300203-전부개정 / 300204-폐지 / 300205-폐지제정 / 300206-일괄개정 / 300207-일괄폐지 / 300209-타법개정 / 300210-타법폐지 / 300208-기타)"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "법령의 공포번호 검색"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공)"
+    },
+    {
+     "name": "lsChapNo",
+     "required": false,
+     "description": "법령분류 (01-제1편 / 02-제2편 / 03-제3편... 44-제44편)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "현행법령(시행일) 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "eflaw",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력, ID로 검색하면 그 법령의 현행 법령 본문 조회)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "법령의 시행일자 (ID 입력시에는 무시하는 값으로 입력하지 않음)"
+    },
+    {
+     "name": "JO",
+     "required": false,
+     "description": "조번호 (생략(기본값) : 모든 조를 표시함) / 6자리숫자 : 조번호(4자리)+조가지번호(2자리) (000200 : 2조, 001002 : 10조의 2)"
+    },
+    {
+     "name": "chrClsCd",
+     "required": false,
+     "description": "원문/한글 여부 (생략(기본값) : 한글) / (010202 : 한글, 010201 : 원문)"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "현행법령(공포일) 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "law",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령의 법령명(법령명 입력시 해당 법령 링크)"
+    },
+    {
+     "name": "LD",
+     "required": false,
+     "description": "법령의 공포일자"
+    },
+    {
+     "name": "LN",
+     "required": false,
+     "description": "법령의 공포번호"
+    },
+    {
+     "name": "JO",
+     "required": false,
+     "description": "조번호 (생략(기본값) : 모든 조를 표시함) / 6자리숫자 : 조번호(4자리)+조가지번호(2자리) (000200 : 2조, 001002 : 10조의 2)"
+    },
+    {
+     "name": "LANG",
+     "required": false,
+     "description": "원문/한글 여부 (생략(기본값) : 한글) / (KO : 한글, ORI : 원문)"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "법령 연혁 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lsHistory",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "시행일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "공포일자 검색"
+    },
+    {
+     "name": "ancYd",
+     "required": false,
+     "description": "공포일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancNo",
+     "required": false,
+     "description": "공포번호 범위 검색(306~400)"
+    },
+    {
+     "name": "rrClsCd",
+     "required": false,
+     "description": "법령 제개정 종류 (300201-제정 / 300202-일부개정 / 300203-전부개정 / 300204-폐지 / 300205-폐지제정 / 300206-일괄개정 / 300207-일괄폐지 / 300209-타법개정 / 300210-타법폐지 / 300208-기타)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공)"
+    },
+    {
+     "name": "lsChapNo",
+     "required": false,
+     "description": "법령분류 (01-제1편 / 02-제2편 / 03-제3편... 44-제44편)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "법령 연혁 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "lsHistory",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령의 법령명(법령명 입력시 해당 법령 링크)"
+    },
+    {
+     "name": "LD",
+     "required": false,
+     "description": "법령의 공포일자"
+    },
+    {
+     "name": "LN",
+     "required": false,
+     "description": "법령의 공포번호"
+    },
+    {
+     "name": "chrClsCd",
+     "required": false,
+     "description": "원문/한글 여부 (생략(기본값) : 한글) / (010202 : 한글, 010201 : 원문)"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "현행법령(시행일) 본문 조항호목 조회",
+   "endpoint": "lawService.do",
+   "target": "eflawjosub",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "efYd",
+     "required": true,
+     "description": "법령의 시행일자 (ID 입력시에는 무시하는 값으로 입력하지 않음)"
+    },
+    {
+     "name": "JO",
+     "required": true,
+     "description": "조 번호 6자리숫자 (예) 제2조 : 000200, 제10조의2 : 001002)"
+    },
+    {
+     "name": "HANG",
+     "required": false,
+     "description": "항 번호 6자리숫자 (예) 제2항 : 000200)"
+    },
+    {
+     "name": "HO",
+     "required": false,
+     "description": "호 번호 6자리숫자 (예) 제2호 : 000200, 제10호의2 : 001002)"
+    },
+    {
+     "name": "MOK",
+     "required": false,
+     "description": "목 한자리 문자 (예) 가,나,다,라, … 카,타,파,하) / 한글은 인코딩 하여 사용하여야 정상적으로 사용이 가능 (URLDecoder.decode(\"다\", \"UTF-8\"))"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "현행법령(공포일) 본문 조항호목 조회",
+   "endpoint": "lawService.do",
+   "target": "lawjosub",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력, ID로 검색하면 그 법령의 현행 법령 본문 조회)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "JO",
+     "required": true,
+     "description": "조 번호 6자리숫자 (예) 제2조 : 000200, 제10조의2 : 001002)"
+    },
+    {
+     "name": "HANG",
+     "required": false,
+     "description": "항 번호 6자리숫자 (예) 제2항 : 000200)"
+    },
+    {
+     "name": "HO",
+     "required": false,
+     "description": "호 번호 6자리숫자 (예) 제2호 : 000200, 제10호의2 : 001002)"
+    },
+    {
+     "name": "MOK",
+     "required": false,
+     "description": "목 한자리 문자 (예) 가,나,다,라, … 카,타,파,하) / 한글은 인코딩 하여 사용하여야 정상적으로 사용이 가능 (URLDecoder.decode(\"다\", \"UTF-8\"))"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "영문법령 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "elaw",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의(default=*)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "법령의 공포일자 검색"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "시행일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancYd",
+     "required": false,
+     "description": "공포일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancNo",
+     "required": false,
+     "description": "공포번호 범위 검색(306~400)"
+    },
+    {
+     "name": "rrClsCd",
+     "required": false,
+     "description": "법령 제개정 종류 (300201-제정 / 300202-일부개정 / 300203-전부개정 / 300204-폐지 / 300205-폐지제정 / 300206-일괄개정 / 300207-일괄폐지 / 300209-타법개정 / 300210-타법폐지 / 300208-기타)"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "법령의 공포번호 검색"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "영문법령 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "elaw",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령의 법령명(법령명 입력시 해당 법령 링크)"
+    },
+    {
+     "name": "LD",
+     "required": false,
+     "description": "법령의 공포일자"
+    },
+    {
+     "name": "LN",
+     "required": false,
+     "description": "법령의 공포번호"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "name": "법령 변경이력 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lsHstInf",
+   "kind": "list",
+   "params": [
+    {
+     "name": "regDt",
+     "required": true,
+     "description": "법령 변경일 검색(20150101)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "name": "일자별 조문 개정 이력 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lsJoHstInf",
+   "kind": "list",
+   "params": [
+    {
+     "name": "regDt",
+     "required": false,
+     "description": "조문 개정일, 8자리 (20150101)"
+    },
+    {
+     "name": "fromRegDt",
+     "required": false,
+     "description": "조회기간 시작일, 8자리 (20150101)"
+    },
+    {
+     "name": "toRegDt",
+     "required": false,
+     "description": "조회기간 종료일, 8자리 (20150101)"
+    },
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령ID"
+    },
+    {
+     "name": "JO",
+     "required": false,
+     "description": "조문번호 (조문번호 4자리 + 조 가지번호 2자리, 예: 000202 : 제2조의2)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "name": "조문별 변경 이력 목록 조회",
+   "endpoint": "lawService.do",
+   "target": "lsJoHstInf",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령 ID"
+    },
+    {
+     "name": "JO",
+     "required": true,
+     "description": "조번호 (6자리숫자 : 조번호(4자리)+조가지번호(2자리), 예: 000200 : 2조, 001002 : 10조의 2)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "name": "법령 자치법규 연계 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lnkLs",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "name": "연계 법령별 조례 조문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lnkLsOrdJo",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 자치법규 오름차순 / ddes : 자치법규 내림차순 / nasc : 자치법규 공포일자 오름차순 / ndes : 자치법규 공포일자 내림차순"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공)"
+    },
+    {
+     "name": "JO",
+     "required": false,
+     "description": "조번호 (생략(기본값) : 모든 조를 표시함) / 4자리숫자 : 조번호(4자리) (0023 : 23조)"
+    },
+    {
+     "name": "JOBR",
+     "required": false,
+     "description": "조가지번호 (2자리숫자 : 조가지번호(2자리), 예: 02 : 2)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "name": "연계 법령 소관부처별 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lnkDep",
+   "kind": "list",
+   "params": [
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(코드별도제공)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 자치법규 오름차순 / ddes : 자치법규 내림차순 / nasc : 자치법규 공포일자 오름차순 / ndes : 자치법규 공포일자 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "name": "법령-자치법규 연계현황 조회",
+   "endpoint": "lawSearch.do",
+   "target": "drlaw",
+   "kind": "list",
+   "params": []
+  },
+  {
+   "id": 18,
+   "name": "위임 법령 조회",
+   "endpoint": "lawService.do",
+   "target": "lsDelegated",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력, ID로 검색하면 그 법령의 현행 법령 본문 조회)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    }
+   ]
+  },
+  {
+   "id": 19,
+   "name": "행정규칙 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "admrul",
+   "kind": "list",
+   "params": [
+    {
+     "name": "nw",
+     "required": false,
+     "description": "1: 현행, 2: 연혁 (기본값: 현행)"
+    },
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 행정규칙명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(코드별도제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "행정규칙 종류별 검색 (1=훈령/2=예규/3=고시/4=공고/5=지침/6=기타)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 행정규칙명 오름차순) / ldes : 행정규칙명 내림차순 / dasc : 발령일자 오름차순 / ddes : 발령일자 내림차순 / nasc : 발령번호 오름차순 / ndes : 발령번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "행정규칙 발령일자"
+    },
+    {
+     "name": "prmlYd",
+     "required": false,
+     "description": "발령일자 기간검색(20090101~20090130)"
+    },
+    {
+     "name": "modYd",
+     "required": false,
+     "description": "수정일자 기간검색(20090101~20090130)"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "행정규칙 발령번호 (예: 제2023-8호 검색을 원할시 nb=20238)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 20,
+   "name": "행정규칙 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "admrul",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "행정규칙 일련번호"
+    },
+    {
+     "name": "LID",
+     "required": false,
+     "description": "행정규칙 ID"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "행정규칙명 (조회하고자 하는 정확한 행정규칙명을 입력)"
+    }
+   ]
+  },
+  {
+   "id": 21,
+   "name": "행정규칙 신구법비교 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "admrulOldAndNew",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "행정규칙 종류별 검색 (1=훈령/2=예규/3=고시/4=공고/5=지침/6=기타)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 발령일자 오름차순 / ddes : 발령일자 내림차순 / nasc : 발령번호 오름차순 / ndes : 발령번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "행정규칙 발령일자"
+    },
+    {
+     "name": "prmlYd",
+     "required": false,
+     "description": "발령일자 기간검색(20090101~20090130)"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "행정규칙 발령번호 (예: 제2023-8호 검색을 원할시 nb=20238)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 22,
+   "name": "행정규칙 신구법 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "admrulOldAndNew",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "행정규칙 일련번호 (ID 또는 LID 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "LID",
+     "required": false,
+     "description": "행정규칙 ID (ID 또는 LID 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "행정규칙명 (조회하고자 하는 정확한 행정규칙명을 입력)"
+    }
+   ]
+  },
+  {
+   "id": 23,
+   "name": "법령 체계도 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lsStmd",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "시행일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancYd",
+     "required": false,
+     "description": "공포일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "공포일자 검색"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "공포번호 검색"
+    },
+    {
+     "name": "ancNo",
+     "required": false,
+     "description": "공포번호 범위 검색 (10000~20000)"
+    },
+    {
+     "name": "rrClsCd",
+     "required": false,
+     "description": "법령 제개정 종류 (300201-제정 / 300202-일부개정 / 300203-전부개정 / 300204-폐지 / 300205-폐지제정 / 300206-일괄개정 / 300207-일괄폐지 / 300209-타법개정 / 300210-타법폐지 / 300208-기타)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 24,
+   "name": "법령 체계도 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "lsStmd",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령의 법령명(법령명 입력시 해당 법령 링크)"
+    },
+    {
+     "name": "LD",
+     "required": false,
+     "description": "법령의 공포일자"
+    },
+    {
+     "name": "LN",
+     "required": false,
+     "description": "법령의 공포번호"
+    }
+   ]
+  },
+  {
+   "id": 25,
+   "name": "신구법 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "oldAndNew",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "시행일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancYd",
+     "required": false,
+     "description": "공포일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "공포일자 검색"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "공포번호 검색"
+    },
+    {
+     "name": "ancNo",
+     "required": false,
+     "description": "공포번호 범위 검색 (10000~20000)"
+    },
+    {
+     "name": "rrClsCd",
+     "required": false,
+     "description": "법령 제개정 종류 (300201-제정 / 300202-일부개정 / 300203-전부개정 / 300204-폐지 / 300205-폐지제정 / 300206-일괄개정 / 300207-일괄폐지 / 300209-타법개정 / 300210-타법폐지 / 300208-기타)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 26,
+   "name": "신구법 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "oldAndNew",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령의 법령명(법령명 입력시 해당 법령 링크)"
+    },
+    {
+     "name": "LD",
+     "required": false,
+     "description": "법령의 공포일자"
+    },
+    {
+     "name": "LN",
+     "required": false,
+     "description": "법령의 공포번호"
+    }
+   ]
+  },
+  {
+   "id": 27,
+   "name": "3단 비교 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "thdCmp",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션(기본 : lasc 법령오름차순) / ldes : 법령내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "시행일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancYd",
+     "required": false,
+     "description": "공포일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "공포일자 검색"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "공포번호 검색"
+    },
+    {
+     "name": "ancNo",
+     "required": false,
+     "description": "공포번호 범위 검색 (10000~20000)"
+    },
+    {
+     "name": "rrClsCd",
+     "required": false,
+     "description": "법령 제개정 종류 (300201-제정 / 300202-일부개정 / 300203-전부개정 / 300204-폐지 / 300205-폐지제정 / 300206-일괄개정 / 300207-일괄폐지 / 300209-타법개정 / 300210-타법폐지 / 300208-기타)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 28,
+   "name": "3단비교 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "thdCmp",
+   "kind": "body",
+   "params": [
+    {
+     "name": "knd",
+     "required": true,
+     "description": "3단비교 종류별 검색 (인용조문 : 1 / 위임조문 : 2)"
+    },
+    {
+     "name": "ID",
+     "required": false,
+     "description": "법령 ID (ID 또는 MST 중 하나는 반드시 입력)"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령의 법령명(법령명 입력시 해당 법령 링크)"
+    },
+    {
+     "name": "LD",
+     "required": false,
+     "description": "법령의 공포일자"
+    },
+    {
+     "name": "LN",
+     "required": false,
+     "description": "법령의 공포번호"
+    }
+   ]
+  },
+  {
+   "id": 29,
+   "name": "법령명 약칭 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lsAbrv",
+   "kind": "list",
+   "params": [
+    {
+     "name": "stdDt",
+     "required": false,
+     "description": "등록일(검색시작날짜)"
+    },
+    {
+     "name": "endDt",
+     "required": false,
+     "description": "등록일(검색종료날짜)"
+    }
+   ]
+  },
+  {
+   "id": 30,
+   "name": "삭제 데이터 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "delHst",
+   "kind": "list",
+   "params": [
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "데이터 종류 (법령 : 1 / 행정규칙 : 2 / 자치법규 : 3 / 학칙공단 : 13)"
+    },
+    {
+     "name": "delDt",
+     "required": false,
+     "description": "데이터 삭제 일자 검색 (YYYYMMDD)"
+    },
+    {
+     "name": "frmDt",
+     "required": false,
+     "description": "데이터 삭제 일자 범위 검색 시작일 (YYYYMMDD)"
+    },
+    {
+     "name": "toDt",
+     "required": false,
+     "description": "데이터 삭제 일자 범위 검색 종료일 (YYYYMMDD)"
+    }
+   ]
+  },
+  {
+   "id": 31,
+   "name": "한눈보기 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "oneview",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    }
+   ]
+  },
+  {
+   "id": 32,
+   "name": "한눈보기 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "oneview",
+   "kind": "body",
+   "params": [
+    {
+     "name": "MST",
+     "required": false,
+     "description": "법령 마스터 번호 - 법령테이블의 lsi_seq 값을 의미함"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령의 법령명"
+    },
+    {
+     "name": "LD",
+     "required": false,
+     "description": "법령의 공포일자"
+    },
+    {
+     "name": "LN",
+     "required": false,
+     "description": "법령의 공포번호"
+    },
+    {
+     "name": "JO",
+     "required": false,
+     "description": "조번호 (생략시 기본값: 모든 조를 표시함, 6자리숫자: 조번호(4자리)+조가지번호(2자리), 예: 000200=2조, 001002=10조의2)"
+    }
+   ]
+  },
+  {
+   "id": 33,
+   "name": "자치법규 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "ordin",
+   "kind": "list",
+   "params": [
+    {
+     "name": "nw",
+     "required": false,
+     "description": "(1: 현행, 2: 연혁, 기본값: 현행)"
+    },
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 자치법규명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의(default=*) (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 자치법규오름차순) ldes 자치법규 내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "자치법규 공포일자 검색"
+    },
+    {
+     "name": "efYd",
+     "required": false,
+     "description": "시행일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancYd",
+     "required": false,
+     "description": "공포일자 범위 검색(20090101~20090130)"
+    },
+    {
+     "name": "ancNo",
+     "required": false,
+     "description": "공포번호 범위 검색(306~400)"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "법령의 공포번호 검색"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "지자체별 도·특별시·광역시 검색(지자체코드 제공) (ex. 서울특별시에 대한 검색-> org=6110000)"
+    },
+    {
+     "name": "sborg",
+     "required": false,
+     "description": "지자체별 시·군·구 검색(지자체코드 제공) (필수값 : org, ex.서울특별시 구로구에 대한 검색-> org=6110000&sborg=3160000)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류 (30001-조례 /30002-규칙 /30003-훈령 /30004-예규/30006-기타/30010-고시 /30011-의회규칙)"
+    },
+    {
+     "name": "rrClsCd",
+     "required": false,
+     "description": "법령 제개정 종류 (300201-제정 / 300202-일부개정 / 300203-전부개정 / 300204-폐지 / 300205-폐지제정 / 300206-일괄개정 / 300207-일괄폐지 / 300208-타법개정 / 300209-타법폐지 / 300214-기타)"
+    },
+    {
+     "name": "ordinFd",
+     "required": false,
+     "description": "분류코드별 검색. 분류코드는 지자체 분야코드 openAPI 참조"
+    },
+    {
+     "name": "lsChapNo",
+     "required": false,
+     "description": "법령분야별 검색(법령분야코드제공) (ex. 제1편 검색 lsChapNo=01000000 / 제1편2장,제1편2장1절 lsChapNo=01020000,01020100)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 34,
+   "name": "자치법규 분야 조회",
+   "endpoint": "lawSearch.do",
+   "target": "ordinfd",
+   "kind": "list",
+   "params": [
+    {
+     "name": "org",
+     "required": true,
+     "description": "기관코드값(예:서울시-6110000)"
+    }
+   ]
+  },
+  {
+   "id": 35,
+   "name": "자치법규 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "ordin",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "자치법규ID"
+    },
+    {
+     "name": "MST",
+     "required": false,
+     "description": "자치법규 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 36,
+   "name": "연계 조례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lnkOrd",
+   "kind": "list",
+   "params": [
+    {
+     "name": "query",
+     "required": false,
+     "description": "법규명에서 검색을 원하는 질의"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 자치법규오름차순) ldes 자치법규 내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순 / efasc : 시행일자 오름차순 / efdes : 시행일자 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 37,
+   "name": "연계 법령별 조례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lnkLsOrd",
+   "kind": "list",
+   "params": [
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "(기본 : lasc 자치법규오름차순) ldes 자치법규 내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "법령종류(코드제공) - 법령ID 사용함"
+    }
+   ]
+  },
+  {
+   "id": 38,
+   "name": "연계 조례 지자체별 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "lnkOrg",
+   "kind": "list",
+   "params": [
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "지자체 기관코드 (지자체코드 제공)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "(기본 : lasc 자치법규오름차순) ldes 자치법규 내림차순 / dasc : 공포일자 오름차순 / ddes : 공포일자 내림차순 / nasc : 공포번호 오름차순 / ndes : 공포번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 39,
+   "name": "판례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "prec",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 판례명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의(검색 결과 리스트) (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "법원종류 (대법원:400201, 하위법원:400202)"
+    },
+    {
+     "name": "curt",
+     "required": false,
+     "description": "법원명 (대법원, 서울고등법원, 광주지법, 인천지방법원)"
+    },
+    {
+     "name": "JO",
+     "required": false,
+     "description": "참조법령명(형법, 민법 등)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 사건명 오름차순 / ldes : 사건명 내림차순 / dasc : 선고일자 오름차순 / ddes : 선고일자 내림차순(생략시 기본) / nasc : 법원명 오름차순 / ndes : 법원명 내림차순)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "판례 선고일자"
+    },
+    {
+     "name": "prncYd",
+     "required": false,
+     "description": "선고일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "판례 사건번호"
+    },
+    {
+     "name": "datSrcNm",
+     "required": false,
+     "description": "데이터출처명 (국세법령정보시스템, 근로복지공단산재판례, 대법원)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 40,
+   "name": "판례 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "prec",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "판례 일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "판례명"
+    }
+   ]
+  },
+  {
+   "id": 41,
+   "name": "헌재결정례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "detc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 헌재결정례명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 사건명 오름차순) ldes 사건명 내림차순 / dasc : 선고일자 오름차순 / ddes : 선고일자 내림차순 / nasc : 사건번호 오름차순 / ndes : 사건번호 내림차순 / efasc : 종국일자 오름차순 / efdes : 종국일자 내림차순"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "종국일자"
+    },
+    {
+     "name": "edYd",
+     "required": false,
+     "description": "종국일자 기간 검색"
+    },
+    {
+     "name": "nb",
+     "required": false,
+     "description": "사건번호"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 42,
+   "name": "헌재결정례 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "detc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "헌재결정례 일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "헌재결정례명"
+    }
+   ]
+  },
+  {
+   "id": 43,
+   "name": "법령해석례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "expc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석례명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "회신기관"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 (13-0217 검색을 원할시 itmno=130217)"
+    },
+    {
+     "name": "regYd",
+     "required": false,
+     "description": "등록일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석례명 오름차순) ldes 법령해석례명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 44,
+   "name": "법령해석례 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "expc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석례 일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석례명"
+    }
+   ]
+  },
+  {
+   "id": 45,
+   "name": "행정심판례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "decc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 행정심판례명) 2 : 본문검색"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "cls",
+     "required": false,
+     "description": "재결례유형 (출력 결과 필드에 있는 재결구분코드)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "의결일자"
+    },
+    {
+     "name": "dpaYd",
+     "required": false,
+     "description": "처분일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "rslYd",
+     "required": false,
+     "description": "의결일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 재결례명 오름차순) ldes 재결례명 내림차순 / dasc : 의결일자 오름차순 / ddes : 의결일자 내림차순 / nasc : 사건번호 오름차순 / ndes : 사건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 46,
+   "name": "행정심판례 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "decc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "행정심판례 일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "행정심판례명"
+    }
+   ]
+  },
+  {
+   "id": 47,
+   "name": "개인정보보호위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "ppc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 안건명 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 안건명 오름차순 (default) / ldes : 안건명 내림차순 / dasc : 의결일자 오름차순 / ddes : 의결일자 내림차순 / nasc : 의안번호 오름차순 / ndes : 의안번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 48,
+   "name": "금융위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "fsc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 안건명 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 안건명 오름차순 (default) / ldes : 안건명 내림차순 / nasc : 의결번호 오름차순 / ndes : 의결번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 49,
+   "name": "개인정보보호위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "ppc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 50,
+   "name": "고용보험심사위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "eiac",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 사건명 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 사건명 오름차순 (default) / ldes : 사건명 내림차순 / dasc : 의결일자 오름차순 / ddes : 의결일자 내림차순 / nasc : 사건번호 오름차순 / ndes : 사건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 51,
+   "name": "고용보험심사위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "eiac",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 52,
+   "name": "국민권익위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "acr",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 민원표시 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 민원표시 오름차순 (default) / ldes : 민원표시 내림차순 / dasc : 의결일 오름차순 / ddes : 의결일 내림차순 / nasc : 의안번호 오름차순 / ndes : 의안번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 53,
+   "name": "국민권익위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "acr",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 54,
+   "name": "금융위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "fsc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 55,
+   "name": "노동위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "nlrc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 제목 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 제목 오름차순 (default) / ldes : 제목 내림차순 / dasc : 등록일 오름차순 / ddes : 등록일 내림차순 / nasc : 사건번호 오름차순 / ndes : 사건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 56,
+   "name": "노동위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "nlrc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 57,
+   "name": "방송미디어통신위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kcc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 안건명 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 안건명 오름차순 (default) / ldes : 안건명 내림차순 / dasc : 의결연월일 오름차순 / ddes : 의결연월일 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 58,
+   "name": "방송미디어통신위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kcc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 59,
+   "name": "산업재해보상보험재심사위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "iaciac",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 사건 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 사건 오름차순 (default) / ldes : 사건 내림차순 / dasc : 의결일자 오름차순 / ddes : 의결일자 내림차순 / nasc : 사건번호 오름차순 / ndes : 사건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 60,
+   "name": "산업재해보상보험재심사위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "iaciac",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 61,
+   "name": "중앙토지수용위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "oclt",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 제목 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 제목 오름차순 (default) / ldes : 제목 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 62,
+   "name": "중앙토지수용위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "oclt",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 63,
+   "name": "중앙환경분쟁조정위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "ecc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 사건명 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 사건명 오름차순 (default) / ldes : 사건명 내림차순 / nasc : 의결번호 오름차순 / ndes : 의결번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 64,
+   "name": "중앙환경분쟁조정위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "ecc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 65,
+   "name": "증권선물위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "sfc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 안건명 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 안건명 오름차순 (default) / ldes : 안건명 내림차순 / nasc : 의결번호 오름차순 / ndes : 의결번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 66,
+   "name": "증권선물위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "sfc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    }
+   ]
+  },
+  {
+   "id": 67,
+   "name": "국가인권위원회 결정문 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "nhrck",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (1 : 사건명 (default), 2 : 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (IE 조회시 UTF-8 인코딩 필수)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (lasc : 사건명 오름차순 (default) / ldes : 사건명 내림차순 / nasc : 의결번호 오름차순 / ndes : 의결번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 68,
+   "name": "국가인권위원회 결정문 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "nhrck",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "결정문 일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "결정문명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 69,
+   "name": "조약 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "trty",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 조약명, 2 : 조약본문)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (검색 결과 리스트)"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색 (ga,na,da…,etc)"
+    },
+    {
+     "name": "eftYd",
+     "required": false,
+     "description": "발효일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "concYd",
+     "required": false,
+     "description": "체결일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "cls",
+     "required": false,
+     "description": "1 : 양자조약, 2 : 다자조약"
+    },
+    {
+     "name": "natCd",
+     "required": false,
+     "description": "국가코드"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 조약명오름차순) / ldes : 조약명내림차순 / dasc : 발효일자 오름차순 / ddes : 발효일자 내림차순 / nasc : 조약번호 오름차순 / ndes : 조약번호 내림차순 / rasc : 관보게재일 오름차순 / rdes : 관보게재일 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 70,
+   "name": "조약 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "trty",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": false,
+     "description": "조약 ID"
+    },
+    {
+     "name": "chrClsCd",
+     "required": false,
+     "description": "한글/영문 : 010202(한글)/ 010203(영문) (default = 010202)"
+    }
+   ]
+  },
+  {
+   "id": 71,
+   "name": "별표서식 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "licbyl",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 별표서식명, 2 : 해당법령검색, 3 : 별표본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색을 원하는 질의(default=*) (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 별표서식명 오름차순) / ldes : 별표서식명 내림차순"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공) 소관부처 2개이상 검색 가능(\",\"로 구분)"
+    },
+    {
+     "name": "mulOrg",
+     "required": false,
+     "description": "소관부처 2개이상 검색 조건 (OR : OR검색 (default) / AND : AND검색)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "별표종류 (1 : 별표, 2 : 서식, 3 : 별지, 4 : 별도, 5 : 부록)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 72,
+   "name": "행정규칙 별표서식 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "admbyl",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 별표서식명, 2 : 해당법령검색, 3 : 별표본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의(default=*) (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 별표서식명 오름차순) / ldes : 별표서식명 내림차순"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "별표종류 (1 : 별표, 2 : 서식, 3 : 별지)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 73,
+   "name": "자치법규 별표서식 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "ordinbyl",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 별표서식명, 2 : 해당자치법규명검색, 3 : 별표본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "법령명에서 검색을 원하는 질의(default=*) (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 별표서식명 오름차순) / ldes : 별표서식명 내림차순"
+    },
+    {
+     "name": "org",
+     "required": false,
+     "description": "소관부처별 검색(소관부처코드 제공)"
+    },
+    {
+     "name": "sborg",
+     "required": false,
+     "description": "지자체별 시·군·구 검색(지자체코드 제공) (필수값 : org, ex.서울특별시 구로구에 대한 검색-> org=6110000&sborg=3160000)"
+    },
+    {
+     "name": "knd",
+     "required": false,
+     "description": "별표종류 (1 : 별표, 2 : 서식, 3 : 별도, 4 : 별지)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    }
+   ]
+  },
+  {
+   "id": 74,
+   "name": "고용노동부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "moelCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"퇴직\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 75,
+   "name": "고용노동부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "moelCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 76,
+   "name": "국토교통부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "molitCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"도로\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 77,
+   "name": "국토교통부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "molitCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 78,
+   "name": "기획재정부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "moefCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"조합\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 79,
+   "name": "기획재정부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "moefCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 80,
+   "name": "해양수산부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mofCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"폐기물\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 81,
+   "name": "해양수산부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mofCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 82,
+   "name": "행정안전부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "moisCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"재해\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 83,
+   "name": "행정안전부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "moisCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 84,
+   "name": "기후에너지환경부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "meCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"폐기물\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 85,
+   "name": "기후에너지환경부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "meCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 86,
+   "name": "관세청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kcsCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"거래명세서\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 87,
+   "name": "관세청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kcsCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 해석일자, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 88,
+   "name": "국세청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "ntsCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"세금\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 89,
+   "name": "국세청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "ntsCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 90,
+   "name": "교육부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "moeCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"수능\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 91,
+   "name": "교육부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "moeCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 92,
+   "name": "과학기술정보통신부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "msitCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"연구실\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 93,
+   "name": "과학기술정보통신부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "msitCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 94,
+   "name": "국가보훈부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mpvaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"독립유공자\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 95,
+   "name": "국가보훈부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mpvaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 96,
+   "name": "국방부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mndCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"군종\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 97,
+   "name": "국방부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mndCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 98,
+   "name": "농림축산식품부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mafraCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"농지법\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 99,
+   "name": "농림축산식품부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mafraCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 100,
+   "name": "문화체육관광부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mcstCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"체육\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 101,
+   "name": "문화체육관광부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mcstCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 102,
+   "name": "법무부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mojCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"과태료\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 103,
+   "name": "법무부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mojCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 104,
+   "name": "보건복지부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mohwCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"일반음식점\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 105,
+   "name": "보건복지부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mohwCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 106,
+   "name": "산업통상부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "motieCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"공장\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 107,
+   "name": "산업통상부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "motieCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 108,
+   "name": "성평등가족부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mogefCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"청소년\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 109,
+   "name": "성평등가족부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mogefCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 110,
+   "name": "외교부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mofaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"폐기물\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 111,
+   "name": "외교부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mofaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 112,
+   "name": "중소벤처기업부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mssCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"학원\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 113,
+   "name": "중소벤처기업부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mssCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 114,
+   "name": "통일부 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mouCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"북한\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 115,
+   "name": "통일부 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mouCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 116,
+   "name": "법제처 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "molegCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"법령\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 117,
+   "name": "법제처 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "molegCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 118,
+   "name": "식품의약품안전처 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mfdsCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"위해\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 119,
+   "name": "식품의약품안전처 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mfdsCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 120,
+   "name": "인사혁신처 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mpmCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"징계위원회\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 121,
+   "name": "인사혁신처 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mpmCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 122,
+   "name": "기상청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kmaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"태풍\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 123,
+   "name": "기상청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kmaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 124,
+   "name": "국가유산청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "khsCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"연말\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 125,
+   "name": "국가유산청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "khsCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 126,
+   "name": "농촌진흥청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "rdaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"폐기물\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 127,
+   "name": "농촌진흥청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "rdaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 128,
+   "name": "경찰청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "npaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"폐기물\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 129,
+   "name": "경찰청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "npaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 130,
+   "name": "방위사업청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "dapaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"제조\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 131,
+   "name": "방위사업청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "dapaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 132,
+   "name": "병무청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "mmaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"학력\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 133,
+   "name": "병무청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "mmaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 134,
+   "name": "산림청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kfsCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"벌채\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 135,
+   "name": "산림청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kfsCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 136,
+   "name": "소방청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "nfaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"공공기관\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 137,
+   "name": "소방청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "nfaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 138,
+   "name": "재외동포청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "okaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"귀환\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 139,
+   "name": "재외동포청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "okaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 140,
+   "name": "조달청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "ppsCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"상금\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 (안건번호 변수 적용 시 query 요청변수는 무시됩니다)"
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순, ldes: 법령해석명 내림차순, dasc: 해석일자 오름차순, ddes: 해석일자 내림차순, nasc: 안건번호 오름차순, ndes: 안건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 141,
+   "name": "조달청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "ppsCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 142,
+   "name": "질병관리청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kdcaCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"임상시험\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 (안건번호 변수 적용 시 query 요청변수는 무시됩니다)"
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순, ldes: 법령해석명 내림차순, dasc: 해석일자 오름차순, ddes: 해석일자 내림차순, nasc: 안건번호 오름차순, ndes: 안건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 143,
+   "name": "질병관리청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kdcaCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 144,
+   "name": "국가데이터처 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kostatCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"산업집적법\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 * 안건번호 변수 적용 시 query 요청변수는 무시됩니다."
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순) / ldes : 법령해석명 내림차순 / dasc : 해석일자 오름차순 / ddes : 해석일자 내림차순 / nasc : 안건번호 오름차순 / ndes : 안건번호 내림차순"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 145,
+   "name": "국가데이터처 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kostatCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 146,
+   "name": "지식재산처 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kipoCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"상표\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 (안건번호 변수 적용 시 query 요청변수는 무시됩니다)"
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순, ldes: 법령해석명 내림차순, dasc: 해석일자 오름차순, ddes: 해석일자 내림차순, nasc: 안건번호 오름차순, ndes: 안건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 147,
+   "name": "지식재산처 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kipoCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 148,
+   "name": "해양경찰청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kcgCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"유조선\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 (안건번호 변수 적용 시 query 요청변수는 무시됩니다)"
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순, ldes: 법령해석명 내림차순, dasc: 해석일자 오름차순, ddes: 해석일자 내림차순, nasc: 안건번호 오름차순, ndes: 안건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 149,
+   "name": "해양경찰청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kcgCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 150,
+   "name": "행정중심복합도시건설청 법령해석 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "naaccCgmExpc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 법령해석명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"행복\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "inq",
+     "required": false,
+     "description": "질의기관코드"
+    },
+    {
+     "name": "rpl",
+     "required": false,
+     "description": "해석기관코드"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "itmno",
+     "required": false,
+     "description": "안건번호 (안건번호 변수 적용 시 query 요청변수는 무시됩니다)"
+    },
+    {
+     "name": "explYd",
+     "required": false,
+     "description": "해석일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 법령해석명 오름차순, ldes: 법령해석명 내림차순, dasc: 해석일자 오름차순, ddes: 해석일자 내림차순, nasc: 안건번호 오름차순, ndes: 안건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 151,
+   "name": "행정중심복합도시건설청 법령해석 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "naaccCgmExpc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "법령해석일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "법령해석명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(안건명, 안건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 152,
+   "name": "조세심판원 특별행정심판재결례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "ttSpecialDecc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 특별행정심판재결례명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "cls",
+     "required": false,
+     "description": "재결례유형 (출력 결과 필드에 있는 재결구분코드)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "의결일자"
+    },
+    {
+     "name": "dpaYd",
+     "required": false,
+     "description": "처분일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "rslYd",
+     "required": false,
+     "description": "의결일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 재결례명 오름차순, ldes: 재결례명 내림차순, dasc: 의결일자 오름차순, ddes: 의결일자 내림차순, nasc: 청구번호 오름차순, ndes: 청구번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 청구번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 153,
+   "name": "조세심판원 특별행정심판재결례 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "ttSpecialDecc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "특별행정심판재결례일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "특별행정심판재결례명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 154,
+   "name": "해양안전심판원 특별행정심판재결례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "kmstSpecialDecc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 특별행정심판재결례명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "cls",
+     "required": false,
+     "description": "재결례유형 (출력 결과 필드에 있는 재결구분코드)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "의결일자"
+    },
+    {
+     "name": "dpaYd",
+     "required": false,
+     "description": "처분일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "rslYd",
+     "required": false,
+     "description": "의결일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 재결례명 오름차순, ldes: 재결례명 내림차순, dasc: 의결일자 오름차순, ddes: 의결일자 내림차순, nasc: 재결번호 오름차순, ndes: 재결번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 재결번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 155,
+   "name": "해양안전심판원 특별행정심판재결례 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "kmstSpecialDecc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "특별행정심판재결례일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "특별행정심판재결례명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 156,
+   "name": "국민권익위원회 특별행정심판재결례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "acrSpecialDecc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 특별행정심판재결례명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "cls",
+     "required": false,
+     "description": "재결례유형 (출력 결과 필드에 있는 재결구분코드)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "의결일자"
+    },
+    {
+     "name": "dpaYd",
+     "required": false,
+     "description": "처분일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "rslYd",
+     "required": false,
+     "description": "의결일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 재결례명 오름차순, ldes: 재결례명 내림차순, dasc: 의결일자 오름차순, ddes: 의결일자 내림차순, nasc: 사건번호 오름차순, ndes: 사건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 157,
+   "name": "국민권익위원회 특별행정심판재결례 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "acrSpecialDecc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "특별행정심판재결례일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "특별행정심판재결례명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 158,
+   "name": "인사혁신처 소청심사위원회 특별행정심판재결례 목록 조회",
+   "endpoint": "lawSearch.do",
+   "target": "adapSpecialDecc",
+   "kind": "list",
+   "params": [
+    {
+     "name": "search",
+     "required": false,
+     "description": "검색범위 (기본 : 1 특별행정심판재결례명, 2: 본문검색)"
+    },
+    {
+     "name": "query",
+     "required": false,
+     "description": "검색범위에서 검색을 원하는 질의 (정확한 검색을 위한 문자열 검색 query=\"자동차\")"
+    },
+    {
+     "name": "display",
+     "required": false,
+     "description": "검색된 결과 개수 (default=20 max=100)"
+    },
+    {
+     "name": "page",
+     "required": false,
+     "description": "검색 결과 페이지 (default=1)"
+    },
+    {
+     "name": "cls",
+     "required": false,
+     "description": "재결례유형 (출력 결과 필드에 있는 재결구분코드)"
+    },
+    {
+     "name": "gana",
+     "required": false,
+     "description": "사전식 검색(ga,na,da…,etc)"
+    },
+    {
+     "name": "date",
+     "required": false,
+     "description": "의결일자"
+    },
+    {
+     "name": "dpaYd",
+     "required": false,
+     "description": "처분일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "rslYd",
+     "required": false,
+     "description": "의결일자 검색(20090101~20090130)"
+    },
+    {
+     "name": "sort",
+     "required": false,
+     "description": "정렬옵션 (기본 : lasc 재결례명 오름차순, ldes: 재결례명 내림차순, dasc: 의결일자 오름차순, ddes: 의결일자 내림차순, nasc: 사건번호 오름차순, ndes: 사건번호 내림차순)"
+    },
+    {
+     "name": "popYn",
+     "required": false,
+     "description": "상세화면 팝업창 여부(팝업창으로 띄우고 싶을 때만 'popYn=Y')"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  },
+  {
+   "id": 159,
+   "name": "인사혁신처 소청심사위원회 특별행정심판재결례 본문 조회",
+   "endpoint": "lawService.do",
+   "target": "adapSpecialDecc",
+   "kind": "body",
+   "params": [
+    {
+     "name": "ID",
+     "required": true,
+     "description": "특별행정심판재결례일련번호"
+    },
+    {
+     "name": "LM",
+     "required": false,
+     "description": "특별행정심판재결례명"
+    },
+    {
+     "name": "fields",
+     "required": false,
+     "description": "응답항목 옵션(사건명, 사건번호, ...) * 빈 값일 경우 전체 항목 표출 * 출력 형태 HTML일 경우 적용 불가능"
+    }
+   ]
+  }
+ ]
+}

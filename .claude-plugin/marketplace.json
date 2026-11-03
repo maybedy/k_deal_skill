@@ -1,0 +1,14 @@
+{
+  "name": "k-deal-skill",
+  "owner": {
+    "name": "maybedy"
+  },
+  "plugins": [
+    {
+      "name": "k-deal-skill",
+      "source": "./plugins/k-deal-skill",
+      "description": "DART·KRX·법령·공공데이터 원문 조회",
+      "version": "0.3.0"
+    }
+  ]
+}
