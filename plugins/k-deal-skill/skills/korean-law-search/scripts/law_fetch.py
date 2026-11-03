@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -21,6 +22,7 @@ import urllib.request
 DRF_BASE = "https://www.law.go.kr/DRF/"
 CATALOG_PATH = Path(__file__).resolve().parents[1] / "references" / "law-apis.json"
 MAX_RESPONSE_BYTES = 6 * 1024 * 1024
+RETRY_STATUS = {404, 429, 502, 503, 504}
 DECISION_TARGETS = {
     "precedent": "prec", "interpretation": "expc", "tax_tribunal": "ttSpecialDecc", "customs": "kcsCgmExpc",
     "nts": "ntsCgmExpc", "moel": "moelCgmExpc", "constitutional": "detc", "admin_appeal": "decc", "ftc": "ftc",
@@ -52,9 +54,13 @@ def decision_target(domain: str) -> str:
 
 
 def jo_code(article: str | None) -> str | None:
-    """제750조 -> 075000, 제10조의2 -> 001002. Anything else (부칙 등) returns None and the full text is fetched."""
-    match = re.fullmatch(r"제?\s*(\d{1,4})\s*조(?:\s*의\s*(\d{1,2}))?", (article or "").strip())
-    if not match:
+    """제750조 -> 075000, 제10조의2·제10조-2 -> 001002, 第750條 -> 075000, 075000 -> 075000.
+    항·호·목은 떼고 조 단위로 본다. Anything else (부칙 등) returns None."""
+    text = (article or "").strip().replace("第", "제").replace("條", "조")
+    if re.fullmatch(r"\d{6}", text):
+        return text
+    match = re.fullmatch(r"제?\s*(\d{1,4})\s*조(?:\s*(?:의|-)\s*(\d{1,2}))?(?:\s*(?:제\s*)?\d{1,3}\s*(?:항|호|목).*)?", text)
+    if not match or int(match.group(1)) == 0:
         return None
     return match.group(1).zfill(4) + (match.group(2) or "0").zfill(2)
 
@@ -67,7 +73,7 @@ def redact(text: str, oc: str) -> str:
 def load_oc() -> str:
     oc = os.environ.get("LAW_OC", "").strip()
     if not oc:
-        raise LawError("not_connected", "LAW_OC is not set. Register an OC at open.law.go.kr, or use scripts/mcp_http.py (public remote server) instead.")
+        raise LawError("not_connected", "LAW_OC is not set. Register an OC at open.law.go.kr, or use scripts/mcp_http.py (the operator's shared /law connection) instead.")
     if not re.fullmatch(r"[A-Za-z0-9._@-]{1,64}", oc):
         raise LawError("invalid_credential", "LAW_OC contains unexpected characters.")
     return oc
@@ -75,27 +81,120 @@ def load_oc() -> str:
 
 def request(endpoint: str, params: dict, oc: str) -> dict:
     query = urllib.parse.urlencode({"OC": oc, "type": "JSON", **{k: str(v) for k, v in params.items() if v not in (None, "")}})
-    req = urllib.request.Request(f"{DRF_BASE}{endpoint}?{query}", headers={"Accept": "application/json", "User-Agent": "k-deal-skill-law/1.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=25) as response:
-            raw = response.read(MAX_RESPONSE_BYTES + 1)
-    except urllib.error.HTTPError as exc:
-        code = exc.code
-        exc.close()
-        raise LawError("law_http_error", f"법제처 API가 HTTP {code}로 응답했습니다. 결과 없음으로 해석하지 않습니다.") from None
-    except (urllib.error.URLError, TimeoutError, OSError):
-        raise LawError("transport_error", "법제처 API 연결에 실패했습니다. 결과 없음으로 해석하지 않습니다.") from None
+    req = urllib.request.Request(f"{DRF_BASE}{endpoint}?{query}", headers={"Accept": "application/json", "User-Agent": "k-deal-skill-law/1.1"})
+    # DRF answers bursts with short-lived 404/5xx; those and dropped connections get two quick retries.
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=25) as response:
+                raw = response.read(MAX_RESPONSE_BYTES + 1)
+            break
+        except urllib.error.HTTPError as exc:
+            code = exc.code
+            exc.close()
+            if code in RETRY_STATUS and attempt < 2:
+                time.sleep(0.3 * 3 ** attempt)
+                continue
+            raise LawError("law_http_error", f"법제처 API가 HTTP {code}로 응답했습니다. 결과 없음으로 해석하지 않습니다.") from None
+        except (urllib.error.URLError, TimeoutError, OSError):
+            if attempt < 2:
+                time.sleep(0.3 * 3 ** attempt)
+                continue
+            raise LawError("transport_error", "법제처 API 연결에 실패했습니다. 결과 없음으로 해석하지 않습니다.") from None
     if len(raw) > MAX_RESPONSE_BYTES:
         raise LawError("response_too_large", "응답이 너무 큽니다. 조문(--article)을 지정하거나 범위를 좁혀 다시 조회하세요.")
+    if not raw.strip():
+        raise LawError("law_api_empty", "법제처 API가 빈 응답을 보냈습니다. 일시 장애이거나 해당 자료가 없는 경우로, 결과 없음으로 단정하지 않습니다.")
     try:
         data = json.loads(redact(raw.decode("utf-8", errors="replace"), oc))
     except ValueError:
-        raise LawError("law_api_non_json", "법제처 API가 JSON이 아닌 응답을 보냈습니다. OC 승인, 등록된 IP·도메인, 점검 여부를 확인하세요.") from None
+        raise LawError("law_api_non_json", "법제처 API가 JSON이 아닌 응답(안내 페이지)을 보냈습니다. 없는 시행일·조문 조합, JSON 미지원 API, OC 승인·등록 IP 문제 중 하나입니다.") from None
     if isinstance(data, dict) and isinstance(data.get("result"), str) and isinstance(data.get("msg"), str) and len(data) <= 3:
         raise LawError("law_api_rejected", f"법제처 API가 요청을 거절했습니다: {data['result']} {data['msg']}"[:240])
     return {"status": "ok", "data": data, "metadata": {"provider": "법제처 국가법령정보 공동활용 Open API",
             "source_url": f"{DRF_BASE}{endpoint}", "request": {k: str(v) for k, v in params.items() if v not in (None, "")},
             "fetched_at": datetime.now(timezone.utc).isoformat(), "freshness": FRESHNESS}}
+
+
+def not_found_message(data: object) -> str | None:
+    """DRF signals a missing document with {} or a lone message such as {"Law": "일치하는 판례가 없습니다"}."""
+    if not isinstance(data, dict):
+        return "법제처 API가 형식을 알 수 없는 응답을 보냈습니다."
+    if not data:
+        return "해당 식별자·시행일로 조회되는 원문이 없습니다."
+    if len(data) == 1 and isinstance(next(iter(data.values())), str):
+        return re.sub(r"\s+", " ", next(iter(data.values()))).strip()[:160]
+    return None
+
+
+def law_versions(law_id: str, oc: str) -> list[dict]:
+    """Every version of a law (현행·연혁·시행예정), newest effective date first."""
+    rows: list = []
+    for page in range(1, 6):
+        body = request("lawSearch.do", {"target": "eflaw", "LID": law_id, "nw": "1,2,3", "display": 100, "page": page}, oc)["data"]
+        body = body.get("LawSearch") if isinstance(body, dict) else None
+        found = (body or {}).get("law") or []
+        found = found if isinstance(found, list) else [found]
+        rows += found
+        if len(found) < 100 or len(rows) >= int((body or {}).get("totalCnt") or 0):
+            break
+    versions = [{"mst": str(r["법령일련번호"]), "effective": str(r["시행일자"]), "promulgated": str(r.get("공포일자", "")),
+                 "status": str(r.get("현행연혁코드", "")), "name": str(r.get("법령명한글", ""))}
+                for r in rows if isinstance(r, dict) and r.get("법령일련번호") and re.fullmatch(r"\d{8}", str(r.get("시행일자", "")))]
+    return sorted(versions, key=lambda v: (v["effective"], v["mst"]), reverse=True)
+
+
+def as_list(value: object) -> list:
+    return value if isinstance(value, list) else [] if value is None else [value]
+
+
+def law_text(args: argparse.Namespace, oc: str) -> dict:
+    version = None
+    if args.date and args.law_id:
+        versions = law_versions(args.law_id, oc)
+        chosen = next((v for v in versions if v["effective"] <= args.date), None)
+        if not chosen:
+            raise LawError("not_found", f"{args.date} 이전에 시행된 버전이 없습니다(가장 이른 시행일 {versions[-1]['effective']})."
+                           if versions else "법령 ID로 조회되는 버전 목록이 없습니다.")
+        version = {"requested_date": args.date, "mst": chosen["mst"], "effective": chosen["effective"], "promulgated": chosen["promulgated"],
+                   "status": chosen["status"], "name_then": chosen["name"], "resolved_by": "version_list"}
+        params = {"target": "eflaw", "MST": chosen["mst"], "efYd": chosen["effective"]}
+    elif args.date:
+        version = {"requested_date": args.date, "mst": args.mst, "effective": args.date, "resolved_by": "mst_and_exact_effective_date"}
+        params = {"target": "eflaw", "MST": args.mst, "efYd": args.date}
+    else:
+        params = {"target": "law", **({"MST": args.mst} if args.mst else {"ID": args.law_id})}
+    addenda = (args.article or "").strip() == "부칙"
+    jo = None if addenda else jo_code(args.article)
+    if jo:
+        params["JO"] = jo
+    result = request("lawService.do", params, oc)
+    missing = not_found_message(result["data"])
+    if missing:
+        if version and not args.law_id:
+            missing += " --mst와 --date를 함께 쓰면 date는 그 버전의 정확한 시행일이어야 합니다. 기준일 당시 버전은 --law-id와 --date로 조회하세요."
+        raise LawError("not_found", missing)
+    law = result["data"].get("법령") if isinstance(result["data"].get("법령"), dict) else {}
+    notes = []
+    if jo:
+        number, branch = int(jo[:4]), int(jo[4:])
+        units = [u for u in as_list((law.get("조문") or {}).get("조문단위")) if isinstance(u, dict) and u.get("조문여부") == "조문"
+                 and int(u.get("조문번호") or 0) == number and int(u.get("조문가지번호") or 0) == branch]
+        if not units:
+            raise LawError("not_found", f"해당 버전에 {args.article}가 없습니다. 조문 번호와 기준일을 확인하세요.")
+        law["조문"]["조문단위"] = units
+        if re.search(r"[항호목]", args.article):
+            notes.append("항·호·목은 조 단위로 조회했습니다. 해당 항·호·목은 조문 안에서 확인하세요.")
+    elif addenda:
+        units = sorted(as_list((law.get("부칙") or {}).get("부칙단위")), key=lambda u: str(u.get("부칙공포일자", "")) if isinstance(u, dict) else "", reverse=True)
+        result["data"]["법령"] = {"기본정보": law.get("기본정보"), "부칙": {"부칙단위": units}}
+        notes.append(f"부칙 {len(units)}건을 공포일 최근 순으로 반환했습니다.")
+    elif args.article:
+        notes.append("조문 번호 형식이 아니어서 전체 본문을 조회했습니다.")
+    if version:
+        result["metadata"]["version"] = version
+    if notes:
+        result["metadata"]["note"] = " ".join(notes)
+    return result
 
 
 def rank_laws(rows: list, query: str) -> list:
@@ -136,15 +235,7 @@ def execute(args: argparse.Namespace) -> dict:
             result["metadata"]["ranking"] = f"법령명 일치도 순으로 상위 {len(body['law'])}건(검토 {len(rows)}건, 전체 {body.get('totalCnt', len(rows))}건)."
         return result
     if args.command == "law-text":
-        params = {"target": "eflaw", "efYd": args.date} if args.date else {"target": "law"}
-        params["MST" if args.mst else "ID"] = args.mst or args.law_id
-        jo = jo_code(args.article)
-        if jo:
-            params["JO"] = jo
-        result = request("lawService.do", params, oc)
-        if args.article and not jo:
-            result["metadata"]["note"] = "조문 번호 형식이 아니어서 전체 본문을 조회했습니다."
-        return result
+        return law_text(args, oc)
     if args.command == "decisions":
         return request("lawSearch.do", {"target": decision_target(args.domain), "query": args.query,
                                         "display": args.display, "page": args.page}, oc)
@@ -152,7 +243,11 @@ def execute(args: argparse.Namespace) -> dict:
         target = decision_target(args.domain)
         if target in NO_DIRECT_BODY:
             raise LawError("not_available_direct", "국세청 법령해석 본문은 법제처 Open API로 제공되지 않습니다. 국세법령정보시스템(taxlaw.nts.go.kr)에서 확인하세요.")
-        return request("lawService.do", {"target": target, "ID": args.id}, oc)
+        result = request("lawService.do", {"target": target, "ID": args.id}, oc)
+        missing = not_found_message(result["data"])
+        if missing:
+            raise LawError("not_found", missing)
+        return result
     spec = next((api for api in catalog()["apis"] if api["id"] == args.api_id), None)
     if not spec:
         raise LawError("invalid_input", "Unknown api_id; run `catalog` to find one.")
@@ -192,8 +287,8 @@ def build_parser() -> argparse.ArgumentParser:
     ident = text.add_mutually_exclusive_group(required=True)
     ident.add_argument("--law-id")
     ident.add_argument("--mst")
-    text.add_argument("--article", help="예: 제750조, 제10조의2")
-    text.add_argument("--date", type=date_arg, help="시행일 기준 YYYYMMDD")
+    text.add_argument("--article", help="예: 제750조, 제10조의2, 제750조제1항(조 단위로 조회), 부칙(부칙만 최근 순)")
+    text.add_argument("--date", type=date_arg, help="기준일 YYYYMMDD. --law-id와 쓰면 그날 시행 중이던 버전, --mst와 쓰면 그 버전의 정확한 시행일")
     decisions = commands.add_parser("decisions", help="Search precedents, interpretations and committee decisions.")
     decisions.add_argument("--domain", required=True, help=f"{', '.join(DECISION_TARGETS)} or a DRF target code")
     decisions.add_argument("--query", required=True)

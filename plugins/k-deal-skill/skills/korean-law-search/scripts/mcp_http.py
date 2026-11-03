@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Small read-only MCP HTTP client for the public Korean Law MCP service.
+"""Small read-only MCP HTTP client for the anonymous law-only connection (/law) of the Market Research server.
 
-Original implementation; no upstream code or third-party dependencies bundled.
-Upstream service: https://github.com/chrisryugj/korean-law-mcp (MIT).
+For users without their own LAW_OC. The server answers from the 법제처 Open API with the operator's OC; this client
+never sends a key. Original implementation with no third-party dependencies.
 """
 from __future__ import annotations
 
@@ -17,13 +17,13 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-DEFAULT_ENDPOINT = "https://mcp.gomdori.app/law"
-ALLOWED_ENDPOINTS = frozenset({DEFAULT_ENDPOINT, "https://korean-law-mcp.fly.dev/mcp"})
-SUPPORTED_PROTOCOLS = ("2025-06-18", "2025-03-26", "2024-11-05")
+# Operator's public /law address. Empty until the server has a public domain; K_DEAL_LAW_ENDPOINT overrides it
+# (for example a self-hosted Market Research server).
+PUBLIC_LAW_ENDPOINT = ""
+DEFAULT_ENDPOINT = os.environ.get("K_DEAL_LAW_ENDPOINT", "").strip() or PUBLIC_LAW_ENDPOINT
+SUPPORTED_PROTOCOLS = ("2026-07-28", "2025-11-25", "2025-06-18", "2025-03-26")
 READ_ONLY_TOOLS = frozenset({
-    "search_law", "get_law_text", "ordinance_radar", "get_annexes",
-    "legal_research", "legal_analysis", "discover_tools",
-    "search_decisions", "get_decision_text",
+    "law_search", "law_text", "law_decisions_search", "law_decision_text", "law_catalog", "law_api",
 })
 MAX_RESPONSE_BYTES = 2 * 1024 * 1024
 MAX_ARGUMENT_BYTES = 100 * 1024
@@ -57,9 +57,12 @@ def redact_result(value: object, secret: str = "") -> object:
 
 
 def validate_endpoint(endpoint: str) -> str:
-    # Exact URLs, not suffix checks: credentials never go to a caller-chosen host.
-    if endpoint not in ALLOWED_ENDPOINTS:
-        raise MCPError("Endpoint is not allowlisted; use the built-in Korean Law HTTPS endpoints.")
+    if not endpoint:
+        raise MCPError("No remote law server is configured yet. Issue a LAW_OC at open.law.go.kr and use scripts/law_fetch.py.")
+    parts = urllib.parse.urlsplit(endpoint)
+    if (parts.scheme != "https" or not parts.hostname or parts.username or parts.password
+            or parts.query or parts.fragment or not parts.path.endswith("/law")):
+        raise MCPError("The law endpoint must be a plain https://<host>/law address with no credentials or query.")
     return endpoint
 
 
@@ -121,20 +124,18 @@ def decode_response(raw: bytes, content_type: str, request_id: int) -> dict | No
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
-        # Refuse even same-origin redirects so apikey/session headers cannot leak.
+        # Refuse even same-origin redirects so session headers cannot leak.
         return None
 
 
 class LawClient:
-    def __init__(self, endpoint: str = DEFAULT_ENDPOINT, timeout: float = 25,
-                 api_key: str | None = None, opener=None):
+    def __init__(self, endpoint: str = DEFAULT_ENDPOINT, timeout: float = 25, opener=None):
         self.endpoint = validate_endpoint(endpoint)
         if not 1 <= timeout <= 60:
             raise MCPError("Timeout must be between 1 and 60 seconds.")
         self.timeout = timeout
-        self.api_key = os.environ.get("LAW_OC", "") if api_key is None else api_key
-        if any(c in self.api_key for c in "\r\n"):
-            raise MCPError("LAW_OC contains invalid header characters.")
+        # Only used to redact; the key itself is never sent to the remote server.
+        self.api_key = os.environ.get("LAW_OC", "")
         self.opener = opener or urllib.request.build_opener(NoRedirect())
         self.session_id = None
         self.protocol = None
@@ -151,8 +152,6 @@ class LawClient:
         if not notification:
             payload["id"] = request_id
         headers = {"Content-Type": "application/json", "Accept": "application/json, text/event-stream"}
-        if self.api_key:
-            headers["apikey"] = self.api_key
         if self.protocol:
             headers["MCP-Protocol-Version"] = self.protocol
         if self.session_id:
@@ -193,9 +192,9 @@ class LawClient:
             # HTTPError owns the response stream even when its body is not read.
             exc.close()
             if exc.code in (401, 403):
-                raise MCPError("Authentication/access denied (HTTP %s). Configure LAW_OC in this runtime; public capacity is not guaranteed." % exc.code) from None
+                raise MCPError("Access denied (HTTP %s). The remote law connection may be closed; issue a LAW_OC and use scripts/law_fetch.py." % exc.code) from None
             if exc.code == 429:
-                raise MCPError("Quota/rate limit reached (HTTP 429). Stop and check LAW_OC or server capacity; this is not an empty search result.") from None
+                raise MCPError("Per-IP limit of the shared law connection reached (HTTP 429). Wait, or issue a LAW_OC and use scripts/law_fetch.py; this is not an empty search result.") from None
             if 300 <= exc.code < 400:
                 raise MCPError("HTTP redirect refused; no credentials were forwarded to the redirect target.") from None
             if exc.code == 404 and self.session_id:
@@ -213,7 +212,7 @@ class LawClient:
     def initialize(self) -> dict:
         result = self._post("initialize", {
             "protocolVersion": SUPPORTED_PROTOCOLS[0], "capabilities": {},
-            "clientInfo": {"name": "k-deal-skill-law-client", "version": "1.0.0"},
+            "clientInfo": {"name": "k-deal-skill-law-client", "version": "1.1.0"},
         })
         if not isinstance(result, dict) or result.get("protocolVersion") not in SUPPORTED_PROTOCOLS:
             raise MCPError("Server negotiated an unsupported MCP protocol; update the client after review.")
@@ -227,7 +226,7 @@ class LawClient:
 
     def call(self, name: str, arguments: dict) -> dict:
         if name not in READ_ONLY_TOOLS:
-            raise MCPError("Tool is not in this client's read-only allowlist. execute_tool and arbitrary proxy calls are disabled.")
+            raise MCPError("Tool is not in this client's read-only allowlist.")
         result = self._post("tools/call", {"name": name, "arguments": validate_arguments(arguments)})
         if isinstance(result, dict) and result.get("isError"):
             raise MCPError("Law lookup failed (not zero results): " + self._safe_message(result.get("content", [])))
@@ -236,14 +235,14 @@ class LawClient:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--endpoint", default=DEFAULT_ENDPOINT, help="Built-in HTTPS endpoints only; no credentials in URLs")
+    parser.add_argument("--endpoint", default=DEFAULT_ENDPOINT, help="https://<host>/law; defaults to K_DEAL_LAW_ENDPOINT or the operator server")
     parser.add_argument("--timeout", type=float, default=25, help="Per-request timeout, 1–60 seconds")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("initialize")
     commands.add_parser("tools-list")
     search = commands.add_parser("search-law")
     search.add_argument("--query", required=True)
-    search.add_argument("--display", type=int, default=10, choices=range(1, 101), metavar="1..100")
+    search.add_argument("--display", type=int, default=10, choices=range(1, 51), metavar="1..50")
     law = commands.add_parser("law-text")
     identifier = law.add_mutually_exclusive_group(required=True)
     identifier.add_argument("--mst")
@@ -266,9 +265,9 @@ def main(argv=None) -> int:
             except json.JSONDecodeError:
                 raise MCPError("--arguments is not valid JSON.") from None
         elif args.command == "law-text":
-            arguments = {"mst": args.mst} if args.mst else {"lawId": args.law_id}
+            arguments = {"mst": args.mst} if args.mst else {"law_id": args.law_id}
             if args.article:
-                arguments["jo"] = args.article
+                arguments["article"] = args.article
             if args.date:
                 try:
                     if not re.fullmatch(r"\d{8}", args.date):
@@ -276,15 +275,15 @@ def main(argv=None) -> int:
                     dt.datetime.strptime(args.date, "%Y%m%d")
                 except ValueError:
                     raise MCPError("--date must be a valid YYYYMMDD date.") from None
-                arguments["efYd"] = args.date
-        client = LawClient(args.endpoint, args.timeout, key)
+                arguments["date"] = args.date
+        client = LawClient(args.endpoint, args.timeout)
         result = client.initialize()
         if args.command == "tools-list":
             result = client.tools_list()
         elif args.command == "search-law":
-            result = client.call("search_law", {"query": args.query, "display": args.display})
+            result = client.call("law_search", {"query": args.query, "display": args.display})
         elif args.command == "law-text":
-            result = client.call("get_law_text", arguments)
+            result = client.call("law_text", arguments)
         elif args.command == "call":
             result = client.call(args.tool, arguments)
         output = {"endpoint": client.endpoint,

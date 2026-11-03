@@ -13,6 +13,7 @@ SCRIPT = (Path(__file__).parents[1] / "plugins/k-deal-skill/skills/korean-law-se
 SPEC = importlib.util.spec_from_file_location("law_helper", SCRIPT)
 law = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(law)
+EP = "https://mrm.example/law"
 
 
 class Response(io.BytesIO):
@@ -49,51 +50,53 @@ class LawClientTests(unittest.TestCase):
             with self.assertRaises(law.MCPError):
                 law.decode_response(raw, "application/json", 1)
 
-    def test_endpoint_validation_rejects_host_query_and_userinfo(self):
-        for endpoint in ("http://mcp.gomdori.app/law", "https://mcp.gomdori.app.evil.test/law",
-                         "https://mcp.gomdori.app/law?oc=secret", "https://evil@mcp.gomdori.app/law",
-                         "https://mcp.gomdori.app/other"):
+    def test_endpoint_validation_rejects_plain_http_query_userinfo_and_other_paths(self):
+        for endpoint in ("", "http://mrm.example/law", "https://mrm.example/law?oc=secret",
+                         "https://evil@mrm.example/law", "https://mrm.example/mcp", "https://mrm.example/law#x"):
             with self.assertRaises(law.MCPError):
-                law.LawClient(endpoint, api_key="secret")
+                law.LawClient(endpoint)
+        self.assertEqual(law.LawClient(EP).endpoint, EP)
 
     def test_redirect_handler_never_follows(self):
         self.assertIsNone(law.NoRedirect().redirect_request(None, None, 302, "", {}, "https://evil.test"))
 
-    def test_initialize_negotiates_and_carries_session_and_key_headers(self):
+    def test_initialize_negotiates_carries_session_and_never_sends_the_key(self):
         opener = Opener([
             Response(rpc({"protocolVersion": "2025-03-26", "serverInfo": {"version": "4.15.9"}}),
                      **{"Content-Type": "application/json", "Mcp-Session-Id": "session-123"}),
             Response(), Response(rpc({"tools": []}, 3), **{"Content-Type": "application/json"}),
         ])
-        client = law.LawClient(api_key="secret", opener=opener)
-        client.initialize()
-        client.tools_list()
+        with mock.patch.dict(law.os.environ, {"LAW_OC": "secret"}):
+            client = law.LawClient(EP, opener=opener)
+            client.initialize()
+            client.tools_list()
         for request in opener.requests:
             self.assertNotIn("secret", request.full_url)
             self.assertNotIn(b"secret", request.data)
-            self.assertEqual(dict(request.header_items())["Apikey"], "secret")
+            self.assertNotIn("secret", str(request.header_items()))
         self.assertEqual(dict(opener.requests[2].header_items())["Mcp-session-id"], "session-123")
         self.assertEqual(dict(opener.requests[2].header_items())["Mcp-protocol-version"], "2025-03-26")
 
     def test_unsupported_protocol_stops_before_tool_call(self):
         opener = Opener([Response(rpc({"protocolVersion": "2099-01-01"}), **{"Content-Type": "application/json"})])
         with self.assertRaisesRegex(law.MCPError, "unsupported"):
-            law.LawClient(api_key="", opener=opener).initialize()
+            law.LawClient(EP, opener=opener).initialize()
         self.assertEqual(len(opener.requests), 1)
 
     def test_auth_http_error_does_not_print_response_body(self):
         body = io.BytesIO(b"echo secret")
-        error = urllib.error.HTTPError(law.DEFAULT_ENDPOINT, 401, "", {}, body)
+        error = urllib.error.HTTPError(EP, 401, "", {}, body)
         with self.assertRaisesRegex(law.MCPError, "LAW_OC") as caught:
-            law.LawClient(api_key="secret", opener=Opener([error])).tools_list()
+            law.LawClient(EP, opener=Opener([error])).tools_list()
         self.assertNotIn("secret", str(caught.exception))
         self.assertTrue(body.closed)
 
     def test_rpc_tool_error_redacts_key_and_is_not_empty_result(self):
         result = {"isError": True, "content": [{"type": "text", "text": "key=private-key rejected"}]}
-        client = law.LawClient(api_key="private-key", opener=Opener([Response(rpc(result), **{"Content-Type": "application/json"})]))
+        with mock.patch.dict(law.os.environ, {"LAW_OC": "private-key"}):
+            client = law.LawClient(EP, opener=Opener([Response(rpc(result), **{"Content-Type": "application/json"})]))
         with self.assertRaisesRegex(law.MCPError, "not zero results") as caught:
-            client.call("search_law", {"query": "민법"})
+            client.call("law_search", {"query": "민법"})
         self.assertNotIn("private-key", str(caught.exception))
         self.assertIn("[REDACTED]", str(caught.exception))
 
@@ -101,7 +104,7 @@ class LawClientTests(unittest.TestCase):
         opener = Opener([])
         for tool in ("delete_law", "execute_tool"):
             with self.assertRaises(law.MCPError):
-                law.LawClient(api_key="", opener=opener).call(tool, {})
+                law.LawClient(EP, opener=opener).call(tool, {})
         self.assertEqual(opener.requests, [])
 
     def test_credential_arguments_rejected_recursively(self):
@@ -120,7 +123,7 @@ class LawClientTests(unittest.TestCase):
 
     def test_cli_emits_parseable_utc_collection_time(self):
         output = io.StringIO()
-        client = mock.Mock(endpoint=law.DEFAULT_ENDPOINT, protocol="2025-03-26",
+        client = mock.Mock(endpoint=EP, protocol="2025-03-26",
                            server_info={"version": "4.15.9"})
         client.initialize.return_value = {"protocolVersion": "2025-03-26"}
         before = dt.datetime.now(dt.timezone.utc)

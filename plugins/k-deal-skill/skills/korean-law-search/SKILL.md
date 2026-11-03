@@ -1,8 +1,8 @@
 ---
 name: korean-law-search
-description: 한국 법령·판례·해석례·위원회 결정문의 원문과 시행 시점을 조회할 때 사용한다. 사용자 본인의 법제처 OC로 법제처 Open API를 직접 조회하고, OC가 없거나 직접 조회가 실패하면 공개 원격 Korean Law MCP를 쓴다.
+description: 한국 법령·판례·해석례·위원회 결정문의 원문과 시행 시점을 조회할 때 사용한다. 사용자 본인의 법제처 OC로 법제처 Open API를 직접 조회하고, OC가 없으면 Market Research 서버의 공용 법령 연결(/law)을 쓴다.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # 한국 법령 조회
@@ -11,9 +11,9 @@ metadata:
 
 ## 조회 경로
 
-1. 현재 대화에 Korean Law MCP 도구가 노출돼 있으면 그 도구를 써도 된다.
+1. 현재 대화에 법령 MCP 도구가 노출돼 있으면 그 도구를 써도 된다.
 2. 사용자 PC에 `LAW_OC`가 있으면 `scripts/law_fetch.py`로 법제처 Open API(`www.law.go.kr/DRF`)를 직접 조회한다. OC는 [open.law.go.kr](https://open.law.go.kr/)에서 무료로 신청하며, 신청할 때 호출할 PC의 공인 IP나 도메인을 등록해야 한다. 등록하지 않은 곳에서 부르면 JSON이 아닌 응답이나 거절이 온다.
-3. OC가 없거나 직접 조회가 실패하면 `scripts/mcp_http.py`로 공개 원격 서버 `https://mcp.gomdori.app/law`를 조회한다. 이때 OC는 보내지 않는다.
+3. OC가 없거나 직접 조회가 실패하면 `scripts/mcp_http.py`로 Market Research 서버의 익명 법령 전용 연결(`/law`)을 조회한다. 이 서버는 운영자 OC로 법제처 Open API만 호출하며, 사용자의 OC는 보내지 않는다. IP별 분당·일 한도가 있고 검색어는 기록하지 않는다. 주소는 스크립트의 `PUBLIC_LAW_ENDPOINT`이며, 직접 띄운 서버를 쓰려면 환경변수 `K_DEAL_LAW_ENDPOINT=https://<호스트>/law`를 둔다. 주소가 비어 있으면 OC 발급을 안내한다.
 4. 실행·네트워크 권한이 없으면 필요한 설정을 설명한다. 설치된 스킬을 실제 연결 성공으로 표현하지 않는다.
 
 ```bash
@@ -33,35 +33,31 @@ python3 scripts/law_fetch.py api --api-id 1 --param query=상법 --param display
 
 ## 자료 선택
 
-- `search_law`로 정식 법령명, `lawId`, 버전 식별자 `mst`, 공포일·시행일을 확인한다. 약칭·유사 명칭을 구분한다.
-- 현행·과거·시행예정 중 요청한 시점을 구분한다. 현행은 `lawId`로 조회하고, 특정 시행본은 `mst` 또는 기준일 `efYd`를 사용한다. 기준일은 `YYYYMMDD`다.
-- `get_law_text`의 `jo`에는 `제38조`, `제10조의2`, `부칙`처럼 자연어 조문 표기를 넣는다. 금액·요건이 별표에 있으면 `get_annexes`를 조회한다.
-- 판례·해석례는 `search_decisions(domain="precedent" 또는 "interpretation", ...)` → `get_decision_text(domain, id)`를 쓴다. `full=true`로 전문이 필요한지 판단한다.
-- 조례·행정규칙도 먼저 `search_law`로 찾는다. 전문 기능은 노출 MCP의 `discover_tools`로 확인한다. 번들 클라이언트는 검토한 최상위 조회 도구만 허용하며 `execute_tool` 프록시는 실행하지 않는다.
+- `law_search`(스크립트 `search-law`)로 정식 법령명, `lawId`, 버전 식별자 `mst`, 공포일·시행일을 확인한다. 약칭·유사 명칭을 구분한다.
+- 현행·과거·시행예정 중 요청한 시점을 구분한다. 현행은 법령 ID로 조회한다. 계약일·사건일처럼 특정 날짜의 법령은 법령 ID와 `date`(`YYYYMMDD`)를 함께 주면 그날 시행 중이던 버전을 찾아 조회하고 `metadata.version`에 실제 버전(MST·시행일)을 적는다. `mst`와 `date`를 함께 주면 `date`는 그 버전의 정확한 시행일이어야 한다.
+- 조문은 `제38조`, `제10조의2`처럼 넣으면 그 조만 돌려준다. `제38조제1항`은 조 단위로 조회한다. `부칙`은 부칙만 공포일 최근 순으로 돌려준다. 없는 조문·판례 ID는 `not_found` 오류다. 금액·요건이 별표에 있으면 `catalog --query 별표`로 별표서식 API를 찾아 `api`로 조회한다.
+- 판례·해석례는 `decisions`(domain=precedent·interpretation 등) → `decision-text`(domain, id) 순서로 본다. 전문이 필요한지 판단한다.
+- 연혁·신구법·3단비교·위임법령·행정규칙·자치법규는 `catalog`에서 API를 찾고 `api`로 실행한다. 원격 연결에서는 같은 기능이 `law_catalog`·`law_api` 도구다.
 - 결과의 국가법령정보센터 링크·식별자·시행일을 남긴다. 검색 결과, 실제 읽은 원문, 해석을 구분하며 API 오류를 검색 0건으로 바꾸지 않는다.
 
-## 원격 서버 클라이언트 예시
+## 원격 연결 클라이언트 예시
 
 아래는 이 스킬 폴더를 작업 디렉터리로 사용한 예다. 다른 위치에서는 설치된 스킬 폴더의 실제 경로를 사용한다.
 
 ```bash
-python3 scripts/mcp_http.py initialize
 python3 scripts/mcp_http.py tools-list
 python3 scripts/mcp_http.py search-law --query '민법' --display 3
 python3 scripts/mcp_http.py law-text --law-id 001706 --article '제750조'
 python3 scripts/mcp_http.py law-text --law-id 001706 --article '제750조' --date 20230101
-python3 scripts/mcp_http.py call search_decisions --arguments '{"domain":"precedent","query":"손해배상","display":3}'
+python3 scripts/mcp_http.py call law_decisions_search --arguments '{"domain":"precedent","query":"손해배상","display":3}'
 ```
 
-`tools-list`는 서버에 실제 노출된 도구를 확인한다. 도움말에 안내되는 `call`은 허용된 읽기 도구에만 JSON 인자를 전달한다. 오류 시 응답을 확인하고 멈춘다. 인증키·무제한 재시도·대체 유료 서비스를 임의로 추가하지 않는다.
+`call`은 허용된 읽기 도구(`law_search`, `law_text`, `law_decisions_search`, `law_decision_text`, `law_catalog`, `law_api`)에만 JSON 인자를 전달한다. HTTP 429는 IP별 한도 초과이며 검색 결과 없음이 아니다. 오류가 나면 멈추고, 자주 쓰면 OC를 발급받아 `law_fetch.py`로 옮긴다.
 
 ## 갱신·출처
 
-2026-10-22 확인한 upstream은 v4.15.9다. 공개 서버 프로그램은 운영자가 갱신하므로 `initialize`의 실제 버전을 확인한다. 법령 자료는 법제처 API에서 조회하며, upstream 구현상 검색·현행 본문은 보통 1시간, 버전이 특정된 본문은 24시간 캐시된다. 조회 시각이 법령 시행일을 뜻하지 않는다.
-
-기존 법망 fallback은 2026-10-22 확인 시 운영 중단 공지가 있어 자동 재시도 대상으로 포함하지 않는다. 필요하면 공식 [국가법령정보센터](https://www.law.go.kr/) 원문 경로를 확인한다.
+조회 시각은 법령 시행일을 뜻하지 않는다. 원격 연결도 법제처 Open API 응답을 그대로 돌려주며, 서버가 저장해 둔 응답이면 `_gateway.cache: hit`이 붙는다.
 
 - 법제처 API 159개 명세: [SeoNaRu/lexguard-mcp](https://github.com/SeoNaRu/lexguard-mcp) 크롤링 결과(MIT)를 정리했다.
-- Upstream: [chrisryugj/korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp), MIT 라이선스. 이 번들의 Python 클라이언트는 자체 작성했으며 upstream 코드·의존성을 포함하지 않는다.
-- 데이터: [법제처 Open API](https://open.law.go.kr/). 일부 국세청 결정문은 upstream이 국세법령정보시스템에서 보완한다.
-- 인증: upstream은 사용자별 OC 발급을 안내한다. 팀 키 사용 범위는 발급기관 조건에 맞춘다.
+- 판례·결정례 분야 이름과 DRF target 대응: [chrisryugj/korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp)(MIT) 기준. 이 번들의 Python 클라이언트는 자체 작성했으며 upstream 코드·의존성을 포함하지 않는다. upstream 공개 서버는 호출하지 않는다.
+- 데이터: [법제처 Open API](https://open.law.go.kr/).

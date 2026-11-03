@@ -9,7 +9,7 @@
 | korean-dart-research | `dart_fetch.py` | 회사코드, 공시 목록, 전체 재무제표, 공시 원문·XBRL, 보고서 75종(최대주주·임원·배당·자기주식·타법인출자·감사의견·5% 보유·유상증자·CB/BW·합병·분할·증권신고서 등) | `DART_API_KEY` |
 | krx-market-data | `krx_fetch.py` | 종목 일별 시세·시가총액·상장주식수, 종목기본정보, KRX Open API 31종(지수·ETF/ETN·채권·파생·일반상품·ESG) | `KRX_API_KEY` |
 | korean-public-data | `api_fetch.py` | 금융위 기업개요·요약재무·계열사, 관세청 품목·국가별 수출입, 카탈로그 19개 서비스 85개 오퍼레이션(예탁원 발행회사·주식, 국민연금 사업장, 공정위 통신판매 등), 국세청 사업자 상태 | `DATA_GO_KR_KEY` |
-| korean-law-search | `law_fetch.py`, `mcp_http.py` | 법령 검색·조문(시행일 기준 포함), 판례·해석례·위원회 결정문, 법제처 Open API 159개. OC가 없으면 공개 원격 법령 MCP로 조회 | `LAW_OC` (선택) |
+| korean-law-search | `law_fetch.py`, `mcp_http.py` | 법령 검색·조문(시행일 기준 포함), 판례·해석례·위원회 결정문, 법제처 Open API 159개. OC가 없으면 Market Research 서버의 공용 법령 연결(`/law`)로 조회 | `LAW_OC` (선택) |
 
 빈 결과와 오류를 구분한다. 승인되지 않은 서비스, 한도 초과, 인증 실패는 `error`로 돌려주고 0건으로 바꾸지 않는다. 응답에는 원천 주소, 요청 파라미터, 조회 시각을 남기며 키 값은 출력하지 않는다.
 
@@ -73,10 +73,10 @@ python3 -m unittest discover -s tests
 python3 tools/package.py
 ```
 
-테스트 69개는 네트워크 없이 돈다. 2026-11-03 실제 키로 DART(회사코드·최대주주·유상증자 결정), KRX(종목 시세·지수 시리즈, 미승인 서비스 거절), data.go.kr(금융위 개요·국세청 상태·국민연금 사업장), 법제처(법령 검색·조문·판례·카탈로그 API)와 원격 법령 MCP 호출을 확인했다.
+테스트 74개는 네트워크 없이 돈다. 2026-11-03 실제 키로 DART(회사코드·최대주주·유상증자 결정), KRX(종목 시세·지수 시리즈, 미승인 서비스 거절), data.go.kr(금융위 개요·국세청 상태·국민연금 사업장), 법제처(법령 검색·조문·판례·카탈로그 API) 호출을 확인했다. 공용 법령 연결(`/law`)은 2026-11-03 운영자 서버에서 법령 검색·조문·판례 조회를 확인했다.
 
 ## 출처와 라이선스
 
-API 이름은 2026-10-26 실제 호출로 확인했다. 법제처 Open API 159개 명세는 [lexguard-mcp](https://github.com/SeoNaRu/lexguard-mcp)(MIT, Copyright (c) 2026 SeoNaRu)의 크롤링 결과를, 판례·결정례 분야 매핑과 원격 법령 서버는 [korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp)(MIT)를 썼다. 재사용 범위는 [docs/provenance.md](docs/provenance.md).
+API 이름은 2026-10-26 실제 호출로 확인했다. 법제처 Open API 159개 명세는 [lexguard-mcp](https://github.com/SeoNaRu/lexguard-mcp)(MIT, Copyright (c) 2026 SeoNaRu)의 크롤링 결과를, 판례·결정례 분야 매핑은 [korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp)(MIT)를 참고했다. 재사용 범위는 [docs/provenance.md](docs/provenance.md).
 
 이 저장소 자체의 라이선스는 아직 정하지 않았다.
