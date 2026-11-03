@@ -1,9 +1,10 @@
 {
   "name": "k-deal-skill",
-  "version": "0.3.1",
-  "description": "한국 딜·기업 리서치용 DART·KRX·data.go.kr·법제처 원문을 각자 API 키로 조회하는 스킬",
+  "version": "0.4.0",
+  "description": "한국 딜·기업 리서치용 DART·KRX·법제처·data.go.kr 원문을 내 PC에서 내 API 키로 조회하는 MCP와 스킬",
   "author": {
     "name": "maybedy"
   },
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
 }

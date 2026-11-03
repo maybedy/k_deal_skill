@@ -8693,6 +8693,3937 @@
      ]
     }
    ]
+  },
+  {
+   "id": "comwel_insured_workplace",
+   "name": "근로복지공단_고용/산재보험 현황정보",
+   "provider": "근로복지공단",
+   "data_url": "https://www.data.go.kr/data/15059256/openapi.do",
+   "base_url": "https://apis.data.go.kr/B490001/gySjbPstateInfoService",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "자동승인",
+   "dev_traffic": 10000,
+   "license": "공공저작물 : 출처표시 (제 1유형)",
+   "pe_use": "사업자등록번호 10자리로 고용·산재보험 가입 사업장의 상시인원, 성립일, 업종 확인(비상장 고용 규모, 국민연금 6자리 매칭 보완). 공공누리 제1유형: 출처(근로복지공단) 표시",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getGySjBoheomBsshItem",
+     "path": "/getGySjBoheomBsshItem",
+     "description": "고용/산재보험 가입 사업장 현황(사업자등록번호로 조회)",
+     "params": [
+      {
+       "name": "v_saeopjaDrno",
+       "required": false,
+       "description": "사업자등록번호 10자리(없으면 전체 목록)"
+      },
+      {
+       "name": "opaBoheomFg",
+       "required": false,
+       "description": "1: 산재, 2: 고용"
+      },
+      {
+       "name": "pageNo",
+       "required": false,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": false,
+       "description": "목록 건수"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "saeopjangNm",
+       "description": "사업장명"
+      },
+      {
+       "name": "sangsiInwonCnt",
+       "description": "상시인원"
+      },
+      {
+       "name": "seongripDt",
+       "description": "성립일자"
+      },
+      {
+       "name": "addr",
+       "description": "주소"
+      },
+      {
+       "name": "post",
+       "description": "우편번호"
+      },
+      {
+       "name": "gyEopjongCd",
+       "description": "고용업종코드"
+      },
+      {
+       "name": "gyEopjongNm",
+       "description": "고용업종명"
+      },
+      {
+       "name": "sjEopjongCd",
+       "description": "산재업종코드"
+      },
+      {
+       "name": "sjEopjongNm",
+       "description": "산재업종명"
+      },
+      {
+       "name": "opaBoheomFg",
+       "description": "1:산재,2:고용"
+      },
+      {
+       "name": "saeopjaDrno",
+       "description": "사업자등록번호"
+      },
+      {
+       "name": "saeopFg",
+       "description": "1 계속, 3 일괄계속, 4 일괄유기, 7 사업개시계속"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "lookup_by": [
+      "bizno"
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "id_fields": {
+    "bizno": "saeopjaDrno",
+    "name": "saeopjangNm",
+    "employees": "sangsiInwonCnt",
+    "established": "seongripDt",
+    "industry": "gyEopjongNm/sjEopjongNm"
+   },
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "kipo_right_register",
+   "name": "지식재산처_등록원부 실시간 정보 조회 서비스",
+   "provider": "지식재산처",
+   "data_url": "https://www.data.go.kr/data/15124946/openapi.do",
+   "base_url": "https://apis.data.go.kr/1430000/PttRgstRtInfoInqSvc",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "자동승인",
+   "dev_traffic": 10000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "법인등록번호·사업자등록번호로 보유 특허·실용신안·디자인·상표 등록권리 목록, 등록번호별 원부 이력과 연차료 납부 확인(비상장 IP 보유·유지 여부)",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getPatentRegisterHistory",
+     "path": "/getPatentRegisterHistory",
+     "description": "특허 등록원부 실시간 이력조회",
+     "params": [
+      {
+       "name": "rgstNo",
+       "required": true,
+       "description": "등록번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "rgstNo",
+       "description": "등록번호"
+      },
+      {
+       "name": "rgstDate",
+       "description": "등록일자"
+      },
+      {
+       "name": "opnDate",
+       "description": "공개일자"
+      },
+      {
+       "name": "opnNo",
+       "description": "공개번호"
+      },
+      {
+       "name": "applNo",
+       "description": "출원번호"
+      },
+      {
+       "name": "applDate",
+       "description": "출원일자"
+      },
+      {
+       "name": "pubNo",
+       "description": "공고번호"
+      },
+      {
+       "name": "pubDate",
+       "description": "공고일자"
+      },
+      {
+       "name": "claimCount",
+       "description": "청구항수"
+      },
+      {
+       "name": "title",
+       "description": "명칭"
+      },
+      {
+       "name": "engTitle",
+       "description": "영문명칭"
+      },
+      {
+       "name": "cndrtExptnDate",
+       "description": "존속기간만료일"
+      },
+      {
+       "name": "cpcCd",
+       "description": "cpc 코드(일자)"
+      },
+      {
+       "name": "ipcCd",
+       "description": "ipc 코드(일자)"
+      },
+      {
+       "name": "lastDspst",
+       "description": "최종처분"
+      },
+      {
+       "name": "applTpcd",
+       "description": "출원구분코드"
+      },
+      {
+       "name": "rfoexDate",
+       "description": "심사청구일"
+      },
+      {
+       "name": "rfoexYn",
+       "description": "심사청구여부"
+      },
+      {
+       "name": "statAnnl",
+       "description": "연차등록정보시작연차"
+      },
+      {
+       "name": "lastAnnl",
+       "description": "연차등록정보마지막연차"
+      },
+      {
+       "name": "payDate",
+       "description": "납입일"
+      },
+      {
+       "name": "payAmount",
+       "description": "납입금액"
+      },
+      {
+       "name": "cofprCount",
+       "description": "우선권주장수"
+      },
+      {
+       "name": "cofprNatl",
+       "description": "우선권주장국가"
+      },
+      {
+       "name": "cofprDate",
+       "description": "우선권주장일"
+      },
+      {
+       "name": "cofprApplno",
+       "description": "우선권주장출원번호"
+      },
+      {
+       "name": "applicantName",
+       "description": "출원인 이름"
+      },
+      {
+       "name": "applicantAddr",
+       "description": "출원인 주소"
+      },
+      {
+       "name": "applicantEngName",
+       "description": "출원인 영문이름"
+      },
+      {
+       "name": "applicantCd",
+       "description": "출원인 번호"
+      },
+      {
+       "name": "applicantNatl",
+       "description": "출원인 국적"
+      },
+      {
+       "name": "rpstrYn",
+       "description": "대표자 여부"
+      },
+      {
+       "name": "inventorName",
+       "description": "발명자이름"
+      },
+      {
+       "name": "inventorAddr",
+       "description": "발명자주소"
+      },
+      {
+       "name": "inventorSeq",
+       "description": "발명자일련번호"
+      },
+      {
+       "name": "inventorCd",
+       "description": "발명자코드"
+      },
+      {
+       "name": "inventorNatl",
+       "description": "발명자국적"
+      },
+      {
+       "name": "ownerName",
+       "description": "권리자 이름"
+      },
+      {
+       "name": "ownerRgstCsName",
+       "description": "권리자등록(변경)이름"
+      },
+      {
+       "name": "ownerRgstCsReason",
+       "description": "권리자등록(변경)사유"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getUtilityModelHistory",
+     "path": "/getUtilityModelHistory",
+     "description": "실용신안 등록원부 실시간 이력조회",
+     "params": [
+      {
+       "name": "rgstNo",
+       "required": true,
+       "description": "등록번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "rgstNo",
+       "description": "등록번호"
+      },
+      {
+       "name": "rgstDate",
+       "description": "등록일자"
+      },
+      {
+       "name": "opnDate",
+       "description": "공개일자"
+      },
+      {
+       "name": "opnNo",
+       "description": "공개번호"
+      },
+      {
+       "name": "applNo",
+       "description": "출원번호"
+      },
+      {
+       "name": "applDate",
+       "description": "출원일자"
+      },
+      {
+       "name": "pubNo",
+       "description": "공고번호"
+      },
+      {
+       "name": "pubDate",
+       "description": "공고일자"
+      },
+      {
+       "name": "claimCount",
+       "description": "청구항수"
+      },
+      {
+       "name": "title",
+       "description": "명칭"
+      },
+      {
+       "name": "engTitle",
+       "description": "영문명칭"
+      },
+      {
+       "name": "cndrtExptnDate",
+       "description": "존속기간만료일"
+      },
+      {
+       "name": "cpcCd",
+       "description": "cpc 코드(일자)"
+      },
+      {
+       "name": "ipcCd",
+       "description": "ipc 코드(일자)"
+      },
+      {
+       "name": "lastDspst",
+       "description": "최종처분"
+      },
+      {
+       "name": "applTpcd",
+       "description": "출원구분코드"
+      },
+      {
+       "name": "rfoexDate",
+       "description": "심사청구일"
+      },
+      {
+       "name": "rfoexYn",
+       "description": "심사청구여부"
+      },
+      {
+       "name": "statAnnl",
+       "description": "연차등록정보시작연차"
+      },
+      {
+       "name": "lastAnnl",
+       "description": "연차등록정보마지막연차"
+      },
+      {
+       "name": "payDate",
+       "description": "납입일"
+      },
+      {
+       "name": "payAmount",
+       "description": "납입금액"
+      },
+      {
+       "name": "cofprCount",
+       "description": "우선권주장수"
+      },
+      {
+       "name": "cofprNatl",
+       "description": "우선권주장국가"
+      },
+      {
+       "name": "cofprDate",
+       "description": "우선권주장일"
+      },
+      {
+       "name": "cofprApplno",
+       "description": "우선권주장출원번호"
+      },
+      {
+       "name": "applicantName",
+       "description": "출원인 이름"
+      },
+      {
+       "name": "applicantAddr",
+       "description": "출원인 주소"
+      },
+      {
+       "name": "applicantEngName",
+       "description": "출원인 영문이름"
+      },
+      {
+       "name": "applicantCd",
+       "description": "출원인 번호"
+      },
+      {
+       "name": "applicantNatl",
+       "description": "출원인 국적"
+      },
+      {
+       "name": "rpstrYn",
+       "description": "대표자 여부"
+      },
+      {
+       "name": "inventorName",
+       "description": "발명자이름"
+      },
+      {
+       "name": "inventorAddr",
+       "description": "발명자주소"
+      },
+      {
+       "name": "inventorSeq",
+       "description": "발명자일련번호"
+      },
+      {
+       "name": "inventorCd",
+       "description": "발명자코드"
+      },
+      {
+       "name": "inventorNatl",
+       "description": "발명자국적"
+      },
+      {
+       "name": "utilityModelOwnerName",
+       "description": "실용신안 권리자 이름"
+      },
+      {
+       "name": "utilityModelOwnerRgstCsName",
+       "description": "실용신안 권리자등록(변경)이름"
+      },
+      {
+       "name": "utilityModelOwnerRgstCsReason",
+       "description": "실용신안 권리자등록(변경)사유"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getDesignHistory",
+     "path": "/getDesignHistory",
+     "description": "디자인 등록원부 실시간 이력조회",
+     "params": [
+      {
+       "name": "rgstNo",
+       "required": true,
+       "description": "등록번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "dsTgtNm",
+       "description": "대상이되는 물품"
+      },
+      {
+       "name": "rtactDate",
+       "description": "소급일자"
+      },
+      {
+       "name": "rtactCd",
+       "description": "소급구분"
+      },
+      {
+       "name": "opnNo",
+       "description": "공개번호"
+      },
+      {
+       "name": "opnDate",
+       "description": "공개일자"
+      },
+      {
+       "name": "pubNo",
+       "description": "공고번호"
+      },
+      {
+       "name": "pubDate",
+       "description": "공고일자"
+      },
+      {
+       "name": "applNo",
+       "description": "출원번호"
+      },
+      {
+       "name": "applDate",
+       "description": "출원일자"
+      },
+      {
+       "name": "rgstNo",
+       "description": "등록번호"
+      },
+      {
+       "name": "rgstDate",
+       "description": "등록일자"
+      },
+      {
+       "name": "claimCount",
+       "description": "청구항수"
+      },
+      {
+       "name": "lastDspst",
+       "description": "최종처분"
+      },
+      {
+       "name": "ptdsnYn",
+       "description": "부분디자인여부"
+      },
+      {
+       "name": "dsClsNm",
+       "description": "디자인분류명"
+      },
+      {
+       "name": "dsMainCsCd",
+       "description": "국내분류코드"
+      },
+      {
+       "name": "dsLcCsCd",
+       "description": "국제분류코드"
+      },
+      {
+       "name": "cndrtExptnDate",
+       "description": "존속기간만료일"
+      },
+      {
+       "name": "statAnnl",
+       "description": "연차등록정보시작연차"
+      },
+      {
+       "name": "lastAnnl",
+       "description": "연차등록정보마지막연차"
+      },
+      {
+       "name": "payDate",
+       "description": "납입일"
+      },
+      {
+       "name": "payAmount",
+       "description": "납입금액"
+      },
+      {
+       "name": "cofprCount",
+       "description": "우선권주장수"
+      },
+      {
+       "name": "cofprNatl",
+       "description": "우선권주장국가"
+      },
+      {
+       "name": "cofprDate",
+       "description": "우선권주장일"
+      },
+      {
+       "name": "cofprApplno",
+       "description": "우선권주장출원번호"
+      },
+      {
+       "name": "applicantName",
+       "description": "출원인 이름"
+      },
+      {
+       "name": "applicantAddr",
+       "description": "출원인 주소"
+      },
+      {
+       "name": "applicantEngName",
+       "description": "출원인 영문이름"
+      },
+      {
+       "name": "applicantCd",
+       "description": "출원인 번호"
+      },
+      {
+       "name": "applicantNatl",
+       "description": "출원인 국적"
+      },
+      {
+       "name": "rpstrYn",
+       "description": "대표자 여부"
+      },
+      {
+       "name": "originatorName",
+       "description": "창작자이름"
+      },
+      {
+       "name": "originatorAddr",
+       "description": "창작자주소"
+      },
+      {
+       "name": "originatorCd",
+       "description": "창작자코드"
+      },
+      {
+       "name": "originatorNatl",
+       "description": "창작자국적"
+      },
+      {
+       "name": "originatorSeq",
+       "description": "창작자일련번호"
+      },
+      {
+       "name": "ownerName",
+       "description": "권리자 이름"
+      },
+      {
+       "name": "ownerRgstCsName",
+       "description": "권리자등록(변경)이름"
+      },
+      {
+       "name": "ownerRgstCsReason",
+       "description": "권리자등록(변경)사유"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getMarkHistory",
+     "path": "/getMarkHistory",
+     "description": "상표 등록원부 실시간 이력조회",
+     "params": [
+      {
+       "name": "rgstNo",
+       "required": true,
+       "description": "등록번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "title",
+       "description": "명칭"
+      },
+      {
+       "name": "engTitle",
+       "description": "영문명칭"
+      },
+      {
+       "name": "rtactDate",
+       "description": "소급일자"
+      },
+      {
+       "name": "pubNo",
+       "description": "공고번호"
+      },
+      {
+       "name": "pubDate",
+       "description": "공고일자"
+      },
+      {
+       "name": "applNo",
+       "description": "출원번호"
+      },
+      {
+       "name": "applDate",
+       "description": "출원일자"
+      },
+      {
+       "name": "rgstNo",
+       "description": "등록번호"
+      },
+      {
+       "name": "rgstDate",
+       "description": "등록일자"
+      },
+      {
+       "name": "lastDspst",
+       "description": "최종처분"
+      },
+      {
+       "name": "cndrtExptnDate",
+       "description": "존속기간만료일"
+      },
+      {
+       "name": "orgApplRgstNo",
+       "description": "원출원번호"
+      },
+      {
+       "name": "orgApplRgstDate",
+       "description": "원출원일자"
+      },
+      {
+       "name": "markTpcd",
+       "description": "국제/국내분류"
+      },
+      {
+       "name": "tmTpcd",
+       "description": "상표분류"
+      },
+      {
+       "name": "statAnnl",
+       "description": "연차등록정보시작연차"
+      },
+      {
+       "name": "lastAnnl",
+       "description": "연차등록정보마지막연차"
+      },
+      {
+       "name": "payDate",
+       "description": "납입일"
+      },
+      {
+       "name": "payAmount",
+       "description": "납입금액"
+      },
+      {
+       "name": "cofprCount",
+       "description": "우선권주장수"
+      },
+      {
+       "name": "cofprNatl",
+       "description": "우선권주장국가"
+      },
+      {
+       "name": "cofprDate",
+       "description": "우선권주장일"
+      },
+      {
+       "name": "cofprApplno",
+       "description": "우선권주장출원번호"
+      },
+      {
+       "name": "applicantName",
+       "description": "출원인 이름"
+      },
+      {
+       "name": "applicantAddr",
+       "description": "출원인 주소"
+      },
+      {
+       "name": "applicantEngName",
+       "description": "출원인 영문이름"
+      },
+      {
+       "name": "applicantCd",
+       "description": "출원인 번호"
+      },
+      {
+       "name": "applicantNatl",
+       "description": "출원인 국적"
+      },
+      {
+       "name": "rpstrYn",
+       "description": "대표자 여부"
+      },
+      {
+       "name": "ownerName",
+       "description": "권리자 이름"
+      },
+      {
+       "name": "ownerRgstCsName",
+       "description": "권리자등록(변경)이름"
+      },
+      {
+       "name": "ownerRgstCsReason",
+       "description": "권리자등록(변경)사유"
+      },
+      {
+       "name": "ownerRgstCsDate",
+       "description": "권리자등록(변경)일"
+      },
+      {
+       "name": "ownerAddr",
+       "description": "권리자 주소"
+      },
+      {
+       "name": "ownerEngName",
+       "description": "권리자 영어이름"
+      },
+      {
+       "name": "ownerNatl",
+       "description": "권리자 국적"
+      },
+      {
+       "name": "finalOwnerYn",
+       "description": "최종권리자여부"
+      },
+      {
+       "name": "rgstCsName",
+       "description": "등록변경종류"
+      },
+      {
+       "name": "rgstCsDate",
+       "description": "등록변경일"
+      },
+      {
+       "name": "rgstCsReason",
+       "description": "등록변경관련사유"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getPayHistory",
+     "path": "/getPayHistory",
+     "description": "연차 정보 조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호 (Default : 1)"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과수 (Default : 10)"
+      },
+      {
+       "name": "rgstNo",
+       "required": true,
+       "description": "등록번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "statAnnl",
+       "description": "연차등록정보시작연차"
+      },
+      {
+       "name": "lastAnnl",
+       "description": "연차등록정보마지막연차"
+      },
+      {
+       "name": "payDate",
+       "description": "납입일"
+      },
+      {
+       "name": "payAmount",
+       "description": "납입금액"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getBusinessRightList",
+     "path": "/getBusinessRightList",
+     "description": "사업자 권리목록 조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호 (Default : 1)"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과수 (Default : 10)"
+      },
+      {
+       "name": "searchType",
+       "required": true,
+       "description": "검색방법(1: 사업자등록번호,2: 출원인번호,3: 법인등록번호)"
+      },
+      {
+       "name": "searchVal",
+       "required": true,
+       "description": "검색값 (searchType에 따라 사업자등록번호/출원인번호/법인등록번호 값을 넣어줌)"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "rn",
+       "description": "순번"
+      },
+      {
+       "name": "rgstNo",
+       "description": "등록번호"
+      },
+      {
+       "name": "rgstDate",
+       "description": "등록일자"
+      },
+      {
+       "name": "applNo",
+       "description": "출원번호"
+      },
+      {
+       "name": "applDate",
+       "description": "출원일자"
+      },
+      {
+       "name": "pubNo",
+       "description": "공고번호"
+      },
+      {
+       "name": "pubDate",
+       "description": "공고일자"
+      },
+      {
+       "name": "claimCount",
+       "description": "청구항수"
+      },
+      {
+       "name": "title",
+       "description": "명칭"
+      },
+      {
+       "name": "cndrtExptnDate",
+       "description": "존속기간만료일"
+      },
+      {
+       "name": "pertDiv",
+       "description": "해당란정보"
+      },
+      {
+       "name": "rkNo",
+       "description": "권리순위"
+      },
+      {
+       "name": "applicantCd",
+       "description": "출원인 번호"
+      },
+      {
+       "name": "designSeq",
+       "description": "디자인 일련번호"
+      },
+      {
+       "name": "indvCorpTpcd",
+       "description": "개인법인구분"
+      },
+      {
+       "name": "businessNo",
+       "description": "사업자등록번호"
+      },
+      {
+       "name": "corpRgstno",
+       "description": "법인등록번호"
+      },
+      {
+       "name": "rgstStatus",
+       "description": "등록상태"
+      },
+      {
+       "name": "agentInfo",
+       "description": "대리인정보"
+      },
+      {
+       "name": "applicantInfo",
+       "description": "출원인정보"
+      },
+      {
+       "name": "rightHolderInfo",
+       "description": "권리자정보"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "lookup_by": [
+      "crno",
+      "bizno"
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "id_fields": {
+    "crno": "searchVal(searchType=3)",
+    "bizno": "searchVal(searchType=1)"
+   },
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "pps_corp_info",
+   "name": "조달청_나라장터 사용자정보 서비스",
+   "provider": "조달청",
+   "data_url": "https://www.data.go.kr/data/15129466/openapi.do",
+   "base_url": "https://apis.data.go.kr/1230000/ao/UsrInfoService02",
+   "method": "GET",
+   "key_param": "ServiceKey",
+   "format_param": {
+    "name": "type",
+    "value": "json"
+   },
+   "response_format": "JSON+XML",
+   "approval": "자동승인",
+   "approval_prod": "자동승인",
+   "dev_traffic": 10000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "나라장터 조달등록업체 기본정보(종업원수·개업일·제조구분), 업종·공급물품, 부정당제재 이력 확인(공공 거래 실적과 DD 레드플래그)",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getUnptRsttCorpInfo02",
+     "path": "/getUnptRsttCorpInfo02",
+     "description": "부정당제재업체정보조회",
+     "params": [
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지 번호"
+      },
+      {
+       "name": "inqryDiv",
+       "required": true,
+       "description": "조회구분, 검색하고자하는 조회구분 입력"
+      },
+      {
+       "name": "bizno",
+       "required": false,
+       "description": "사업자등록번호, 검색하고자 하는 사업자등록번호 조회구분 1인 경우 필수"
+      },
+      {
+       "name": "inqryBgnDt",
+       "required": false,
+       "description": "조회기준시작일시, 검색하고자하는 검색기준시작일시 YYYYMMDDHHMM"
+      },
+      {
+       "name": "inqryEndDt",
+       "required": false,
+       "description": "조회기준종료일시, 검색하고자하는 검색기준종료일시 YYYYMMDDHHMM"
+      }
+     ],
+     "response_fields": [],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "lookup_by": [
+      "bizno",
+      "company_name"
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getDminsttInfo02",
+     "path": "/getDminsttInfo02",
+     "description": "수요기관정보조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "inqryDiv",
+       "required": true,
+       "description": "조회구분"
+      },
+      {
+       "name": "inqryBgnDt",
+       "required": false,
+       "description": "조회기준시작일시"
+      },
+      {
+       "name": "inqryEndDt",
+       "required": false,
+       "description": "조회기준종료일시"
+      },
+      {
+       "name": "dminsttCd",
+       "required": false,
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "required": false,
+       "description": "수요기관명"
+      },
+      {
+       "name": "bizno",
+       "required": false,
+       "description": "사업자등록번호"
+      }
+     ],
+     "response_fields": [],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getPrcrmntCorpBasicInfo02",
+     "path": "/getPrcrmntCorpBasicInfo02",
+     "description": "조달업체 기본정보 조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "inqryDiv",
+       "required": true,
+       "description": "조회구분"
+      },
+      {
+       "name": "inqryBgnDt",
+       "required": false,
+       "description": "조회기준시작일시"
+      },
+      {
+       "name": "inqryEndDt",
+       "required": false,
+       "description": "조회기준종료일시"
+      },
+      {
+       "name": "corpNm",
+       "required": false,
+       "description": "업체명"
+      },
+      {
+       "name": "bizno",
+       "required": false,
+       "description": "사업자등록번호"
+      }
+     ],
+     "response_fields": [],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "lookup_by": [
+      "bizno",
+      "company_name"
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getPrcrmntCorpIndstrytyInfo02",
+     "path": "/getPrcrmntCorpIndstrytyInfo02",
+     "description": "조달업체업종정보조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "inqryDiv",
+       "required": true,
+       "description": "조회구분"
+      },
+      {
+       "name": "inqryBgnDt",
+       "required": false,
+       "description": "조회기준시작일시"
+      },
+      {
+       "name": "inqryEndDt",
+       "required": false,
+       "description": "조회기준종료일시"
+      },
+      {
+       "name": "bizno",
+       "required": false,
+       "description": "사업자등록번호"
+      }
+     ],
+     "response_fields": [],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getPrcrmntCorpSplyPrdctInfo02",
+     "path": "/getPrcrmntCorpSplyPrdctInfo02",
+     "description": "조달업체공급물품정보조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "inqryDiv",
+       "required": true,
+       "description": "조회구분"
+      },
+      {
+       "name": "inqryBgnDt",
+       "required": false,
+       "description": "조회기준시작일시"
+      },
+      {
+       "name": "inqryEndDt",
+       "required": false,
+       "description": "조회기준종료일시"
+      },
+      {
+       "name": "bizno",
+       "required": false,
+       "description": "사업자등록번호"
+      }
+     ],
+     "response_fields": [],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "id_fields": {
+    "bizno": "bizno",
+    "name": "corpNm"
+   },
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "pps_stats",
+   "name": "조달청_공공조달통계정보서비스",
+   "provider": "조달청",
+   "data_url": "https://www.data.go.kr/data/15129412/openapi.do",
+   "base_url": "https://apis.data.go.kr/1230000/at/PubPrcrmntStatInfoService",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "자동승인",
+   "dev_traffic": 1000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "조달기업별 물품·공사·용역 공공조달 실적 금액(공공매출 규모). 기업 식별값(corpUntyNo 등)은 실제 호출로 확인 필요",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getTotlPubPrcrmntSttus",
+     "path": "/getTotlPubPrcrmntSttus",
+     "description": "전체 공공조달 현황",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYear",
+       "required": true,
+       "description": "검색기준년도"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "bssYear4Amt",
+       "description": "기준년도+4금액"
+      },
+      {
+       "name": "bssMnth",
+       "description": "기준월"
+      },
+      {
+       "name": "statDivNm",
+       "description": "통계구분명"
+      },
+      {
+       "name": "bssYearAmt",
+       "description": "기준년도금액"
+      },
+      {
+       "name": "bssYear1Amt",
+       "description": "기준년도+1금액"
+      },
+      {
+       "name": "bssYear2Amt",
+       "description": "기준년도+2금액"
+      },
+      {
+       "name": "bssYear3Amt",
+       "description": "기준년도+3금액"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getPrdctIdntNoServcAccotArslt",
+     "path": "/getPrdctIdntNoServcAccotArslt",
+     "description": "품목 및 서비스별 실적",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      },
+      {
+       "name": "prdctClsfcNo",
+       "required": false,
+       "description": "물품분류번호"
+      },
+      {
+       "name": "prdctClsfcNm",
+       "required": false,
+       "description": "품명"
+      },
+      {
+       "name": "linkSystmCd",
+       "required": false,
+       "description": "연계시스템코드"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "linkSystmNm",
+       "description": "연계시스템명"
+      },
+      {
+       "name": "prdctClsfcNo",
+       "description": "물품분류번호"
+      },
+      {
+       "name": "prdctClsfcNm",
+       "description": "품명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "gnrlCmptArsltNum",
+       "description": "일반경쟁실적건수"
+      },
+      {
+       "name": "gnrlCmptArsltAmt",
+       "description": "일반경쟁실적금액"
+      },
+      {
+       "name": "lmtCmptArsltNum",
+       "description": "제한경쟁실적건수"
+      },
+      {
+       "name": "lmtCmptArsltAmt",
+       "description": "제한경쟁실적금액"
+      },
+      {
+       "name": "dsgntCmptArsltNum",
+       "description": "지명경쟁실적건수"
+      },
+      {
+       "name": "dsgntCmptArsltAmt",
+       "description": "지명경쟁실적금액"
+      },
+      {
+       "name": "prvtcntrctArsltNum",
+       "description": "수의계약실적건수"
+      },
+      {
+       "name": "prvtcntrctArsltAmt",
+       "description": "수의계약실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getPrcrmntEntrprsAccotBsnsObjAccotArslt",
+     "path": "/getPrcrmntEntrprsAccotBsnsObjAccotArslt",
+     "description": "조달기업별 업무대상별 실적",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      },
+      {
+       "name": "corpUntyNo",
+       "required": true,
+       "description": "업체통합번호"
+      },
+      {
+       "name": "corpNm",
+       "required": true,
+       "description": "업체명"
+      },
+      {
+       "name": "linkSystmCd",
+       "required": true,
+       "description": "연계시스템코드"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "linkSystmNm",
+       "description": "연계시스템명"
+      },
+      {
+       "name": "corpUntyNo",
+       "description": "업체통합번호"
+      },
+      {
+       "name": "corpNm",
+       "description": "업체명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "prdctArsltNum",
+       "description": "물품실적건수"
+      },
+      {
+       "name": "prdctArsltAmt",
+       "description": "물품실적금액"
+      },
+      {
+       "name": "cnstwkArsltNum",
+       "description": "공사실적건수"
+      },
+      {
+       "name": "cnstwkArsltAmt",
+       "description": "공사실적금액"
+      },
+      {
+       "name": "gnrlSrvceArsltNum",
+       "description": "일반용역실적건수"
+      },
+      {
+       "name": "gnrlSrvceArsltAmt",
+       "description": "일반용역실적금액"
+      },
+      {
+       "name": "techSrvceArsltNum",
+       "description": "기술용역실적건수"
+      },
+      {
+       "name": "techSrvceArsltAmt",
+       "description": "기술용역실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getPrcrmntEntrprsAccotCntrctMthdAccotArslt",
+     "path": "/getPrcrmntEntrprsAccotCntrctMthdAccotArslt",
+     "description": "조달기업별 계약방법별 실적",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      },
+      {
+       "name": "corpUntyNo",
+       "required": false,
+       "description": "업체통합번호"
+      },
+      {
+       "name": "corpNm",
+       "required": false,
+       "description": "업체명"
+      },
+      {
+       "name": "linkSystmCd",
+       "required": false,
+       "description": "연계시스템코드"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "mnllbrRgstArsltAmt",
+       "description": "수기등록실적금액"
+      },
+      {
+       "name": "linkSystmNm",
+       "description": "연계시스템명"
+      },
+      {
+       "name": "corpUntyNo",
+       "description": "업체통합번호"
+      },
+      {
+       "name": "corpNm",
+       "description": "업체명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "gnrlCmptArsltNum",
+       "description": "일반경쟁실적건수"
+      },
+      {
+       "name": "gnrlCmptArsltAmt",
+       "description": "일반경쟁실적금액"
+      },
+      {
+       "name": "lmtCmptArsltNum",
+       "description": "제한경쟁실적건수"
+      },
+      {
+       "name": "lmtCmptArsltAmt",
+       "description": "제한경쟁실적금액"
+      },
+      {
+       "name": "dsgntCmptArsltNum",
+       "description": "지명경쟁실적건수"
+      },
+      {
+       "name": "dsgntCmptArsltAmt",
+       "description": "지명경쟁실적금액"
+      },
+      {
+       "name": "prvtcntrctArsltNum",
+       "description": "수의계약실적건수"
+      },
+      {
+       "name": "prvtcntrctArsltAmt",
+       "description": "수의계약실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      },
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "mnllbrRgstArsltNum",
+       "description": "수기등록실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getDminsttAccotSystmTyAccotArslt",
+     "path": "/getDminsttAccotSystmTyAccotArslt",
+     "description": "수요기관별 시스템유형별 실적",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      },
+      {
+       "name": "dminsttCd",
+       "required": false,
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "required": false,
+       "description": "수요기관명"
+      },
+      {
+       "name": "lwrInsttArsltInclsnYn",
+       "required": false,
+       "description": "하위기관실적포함여부"
+      },
+      {
+       "name": "linkSystmCd",
+       "required": false,
+       "description": "연계시스템코드"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "mnllbrPrcrmntArsltAmt",
+       "description": "수기조달실적금액"
+      },
+      {
+       "name": "linkSystmNm",
+       "description": "연계시스템명"
+      },
+      {
+       "name": "dminsttCd",
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "description": "수요기관명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "centrPrcrmntArsltNum",
+       "description": "중앙조달실적건수"
+      },
+      {
+       "name": "centrPrcrmntArsltAmt",
+       "description": "중앙조달실적금액"
+      },
+      {
+       "name": "selfPrcrmntArsltNum",
+       "description": "자체조달실적건수"
+      },
+      {
+       "name": "selfPrcrmntArsltAmt",
+       "description": "자체조달실적금액"
+      },
+      {
+       "name": "systmPrcrmntArsltNum",
+       "description": "자체조달시스템실적건수"
+      },
+      {
+       "name": "systmPrcrmntArsltAmt",
+       "description": "자체조달시스템실적금액"
+      },
+      {
+       "name": "mnllbrPrcrmntArsltNum",
+       "description": "수기조달실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getDminsttAccotBsnsObjAccotArslt",
+     "path": "/getDminsttAccotBsnsObjAccotArslt",
+     "description": "수요기관별 업무대상별 실적",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      },
+      {
+       "name": "dminsttCd",
+       "required": false,
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "required": false,
+       "description": "수요기관명"
+      },
+      {
+       "name": "lwrInsttArsltInclsnYn",
+       "required": false,
+       "description": "하위기관실적포함여부"
+      },
+      {
+       "name": "linkSystmCd",
+       "required": false,
+       "description": "연계시스템코드"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "linkSystmNm",
+       "description": "연계시스템명"
+      },
+      {
+       "name": "dminsttCd",
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "description": "수요기관명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "prdctArsltNum",
+       "description": "물품실적건수"
+      },
+      {
+       "name": "prdctArsltAmt",
+       "description": "물품실적금액"
+      },
+      {
+       "name": "cnstwkArsltNum",
+       "description": "공사실적건수"
+      },
+      {
+       "name": "cnstwkArsltAmt",
+       "description": "공사실적금액"
+      },
+      {
+       "name": "gnrlSrvceArsltNum",
+       "description": "일반용역실적건수"
+      },
+      {
+       "name": "gnrlSrvceArsltAmt",
+       "description": "일반용역실적금액"
+      },
+      {
+       "name": "techSrvceArsltNum",
+       "description": "기술용역실적건수"
+      },
+      {
+       "name": "techSrvceArsltAmt",
+       "description": "기술용역실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getDminsttAccotCntrctMthdAccotArslt",
+     "path": "/getDminsttAccotCntrctMthdAccotArslt",
+     "description": "수요기관별 계약방법별 실적",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      },
+      {
+       "name": "dminsttCd",
+       "required": false,
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "required": false,
+       "description": "수요기관명"
+      },
+      {
+       "name": "lwrInsttArsltInclsnYn",
+       "required": false,
+       "description": "하위기관실적포함여부"
+      },
+      {
+       "name": "linkSystmCd",
+       "required": false,
+       "description": "연계시스템코드"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "mnllbrRgstArsltAmt",
+       "description": "수기등록실적금액"
+      },
+      {
+       "name": "linkSystmNm",
+       "description": "연계시스템명"
+      },
+      {
+       "name": "dminsttCd",
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "description": "수요기관명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "gnrlCmptArsltNum",
+       "description": "일반경쟁실적건수"
+      },
+      {
+       "name": "gnrlCmptArsltAmt",
+       "description": "일반경쟁실적금액"
+      },
+      {
+       "name": "lmtCmptArsltNum",
+       "description": "제한경쟁실적건수"
+      },
+      {
+       "name": "lmtCmptArsltAmt",
+       "description": "제한경쟁실적금액"
+      },
+      {
+       "name": "dsgntCmptArsltNum",
+       "description": "지명경쟁실적건수"
+      },
+      {
+       "name": "dsgntCmptArsltAmt",
+       "description": "지명경쟁실적금액"
+      },
+      {
+       "name": "prvtcntrctArsltNum",
+       "description": "수의계약실적건수"
+      },
+      {
+       "name": "prvtcntrctArsltAmt",
+       "description": "수의계약실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      },
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "mnllbrRgstArsltNum",
+       "description": "수기등록실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getDminsttAccotEntrprsDivAccotArslt",
+     "path": "/getDminsttAccotEntrprsDivAccotArslt",
+     "description": "수요기관별 기업구분별 실적",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      },
+      {
+       "name": "dminsttCd",
+       "required": false,
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "required": false,
+       "description": "수요기관명"
+      },
+      {
+       "name": "lwrInsttArsltInclsnYn",
+       "required": false,
+       "description": "하위기관실적포함여부"
+      },
+      {
+       "name": "linkSystmCd",
+       "required": true,
+       "description": "연계시스템코드"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "linkSystmNm",
+       "description": "연계시스템명"
+      },
+      {
+       "name": "dminsttCd",
+       "description": "수요기관코드"
+      },
+      {
+       "name": "dminsttNm",
+       "description": "수요기관명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "lrgeEntrprsArsltNum",
+       "description": "대기업실적건수"
+      },
+      {
+       "name": "lrgeEntrprsArsltAmt",
+       "description": "대기업실적금액"
+      },
+      {
+       "name": "entrprsOfMidStdArsltNum",
+       "description": "중견기업실적건수"
+      },
+      {
+       "name": "entrprsOfMidStdArsltAmt",
+       "description": "중견기업실적금액"
+      },
+      {
+       "name": "smetprArsltNum",
+       "description": "중소기업실적건수"
+      },
+      {
+       "name": "smetprArsltAmt",
+       "description": "중소기업실적금액"
+      },
+      {
+       "name": "frgncntryEntrprsArsltNum",
+       "description": "외국기업실적건수"
+      },
+      {
+       "name": "frgncntryEntrprsArsltAmt",
+       "description": "외국기업실적금액"
+      },
+      {
+       "name": "nonPrftmkCorprtArsltNum",
+       "description": "기타실적건수"
+      },
+      {
+       "name": "nonPrftmkCorprtArsltAmt",
+       "description": "기타실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getPrcrmntObjectBsnsObjAccotSttus",
+     "path": "/getPrcrmntObjectBsnsObjAccotSttus",
+     "description": "조달목적물(업무대상)별 현황",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "bssYear",
+       "description": "기준년도"
+      },
+      {
+       "name": "bssMnth",
+       "description": "기준월"
+      },
+      {
+       "name": "statDivNm",
+       "description": "통계구분명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "prdctArsltNum",
+       "description": "물품실적건수"
+      },
+      {
+       "name": "prdctArsltAmt",
+       "description": "물품실적금액"
+      },
+      {
+       "name": "cnstwkArsltNum",
+       "description": "공사실적건수"
+      },
+      {
+       "name": "cnstwkArsltAmt",
+       "description": "공사실적금액"
+      },
+      {
+       "name": "gnrlSrvceArsltNum",
+       "description": "일반용역실적건수"
+      },
+      {
+       "name": "gnrlSrvceArsltAmt",
+       "description": "일반용역실적금액"
+      },
+      {
+       "name": "techSrvceArsltNum",
+       "description": "기술용역실적건수"
+      },
+      {
+       "name": "techSrvceArsltAmt",
+       "description": "기술용역실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getRgnDutyCmmnCntrctSttus",
+     "path": "/getRgnDutyCmmnCntrctSttus",
+     "description": "지역의무공동계약 현황",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "rgnDutyCmmnCntrctTotamtRt",
+       "description": "지역의무공동계약총액비율"
+      },
+      {
+       "name": "bssYear",
+       "description": "기준년도"
+      },
+      {
+       "name": "bssMnth",
+       "description": "기준월"
+      },
+      {
+       "name": "statDivNm",
+       "description": "통계구분명"
+      },
+      {
+       "name": "cnstwkCntrctTotamt",
+       "description": "공사계약총액"
+      },
+      {
+       "name": "bidCntrctTotamt",
+       "description": "입찰계약총액"
+      },
+      {
+       "name": "unBidCntrctTotamt",
+       "description": "미입찰계약총액"
+      },
+      {
+       "name": "rgnDutyCmmnCntrctTotamt",
+       "description": "지역의무공동계약총액"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getRgnLmtSttus",
+     "path": "/getRgnLmtSttus",
+     "description": "지역제한 현황",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "rgnLmtTotamtRt",
+       "description": "지역제한총액비율"
+      },
+      {
+       "name": "bssYear",
+       "description": "기준년도"
+      },
+      {
+       "name": "bssMnth",
+       "description": "기준월"
+      },
+      {
+       "name": "statDivNm",
+       "description": "통계구분명"
+      },
+      {
+       "name": "cntrctTotamt",
+       "description": "계약총액"
+      },
+      {
+       "name": "bidCntrctTotamt",
+       "description": "입찰계약총액"
+      },
+      {
+       "name": "unBidCntrctTotamt",
+       "description": "미입찰계약총액"
+      },
+      {
+       "name": "rgnLmtTotamt",
+       "description": "지역제한총액"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getCntrctMthdAccotSttus",
+     "path": "/getCntrctMthdAccotSttus",
+     "description": "계약방법별 현황",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "bssYear",
+       "description": "기준년도"
+      },
+      {
+       "name": "bssMnth",
+       "description": "기준월"
+      },
+      {
+       "name": "statDivNm",
+       "description": "통계구분명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "gnrlCmptArsltNum",
+       "description": "일반경쟁실적건수"
+      },
+      {
+       "name": "gnrlCmptArsltAmt",
+       "description": "일반경쟁실적금액"
+      },
+      {
+       "name": "lmtCmptArsltNum",
+       "description": "제한경쟁실적건수"
+      },
+      {
+       "name": "lmtCmptArsltAmt",
+       "description": "제한경쟁실적금액"
+      },
+      {
+       "name": "dsgntCmptArsltNum",
+       "description": "지명경쟁실적건수"
+      },
+      {
+       "name": "dsgntCmptArsltAmt",
+       "description": "지명경쟁실적금액"
+      },
+      {
+       "name": "prvtcntrctArsltNum",
+       "description": "수의계약실적건수"
+      },
+      {
+       "name": "prvtcntrctArsltAmt",
+       "description": "수의계약실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getEntrprsDivAccotPrcrmntSttus",
+     "path": "/getEntrprsDivAccotPrcrmntSttus",
+     "description": "기업구분별 조달 현황",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "unClsfcArsltAmt",
+       "description": "미분류실적금액"
+      },
+      {
+       "name": "bssYear",
+       "description": "기준년도"
+      },
+      {
+       "name": "bssMnth",
+       "description": "기준월"
+      },
+      {
+       "name": "statDivNm",
+       "description": "통계구분명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "lrgeEntrprsArsltNum",
+       "description": "대기업실적건수"
+      },
+      {
+       "name": "lrgeEntrprsArsltAmt",
+       "description": "대기업실적금액"
+      },
+      {
+       "name": "entrprsOfMidStdArsltNum",
+       "description": "중견기업실적건수"
+      },
+      {
+       "name": "entrprsOfMidStdArsltAmt",
+       "description": "중견기업실적금액"
+      },
+      {
+       "name": "smetprArsltNum",
+       "description": "중소기업실적건수"
+      },
+      {
+       "name": "smetprArsltAmt",
+       "description": "중소기업실적금액"
+      },
+      {
+       "name": "frgncntryEntrprsArsltNum",
+       "description": "외국기업실적건수"
+      },
+      {
+       "name": "frgncntryEntrprsArsltAmt",
+       "description": "외국기업실적금액"
+      },
+      {
+       "name": "etcArsltNum",
+       "description": "기타실적건수"
+      },
+      {
+       "name": "etcArsltAmt",
+       "description": "기타실적금액"
+      },
+      {
+       "name": "unClsfcArsltNum",
+       "description": "미분류실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getInsttDivAccotPrcrmntSttus",
+     "path": "/getInsttDivAccotPrcrmntSttus",
+     "description": "기관구분별 조달 현황",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "srchBssYmBgn",
+       "required": true,
+       "description": "검색기준년월시작"
+      },
+      {
+       "name": "srchBssYmEnd",
+       "required": true,
+       "description": "검색기준년월종료"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "spclCorprtArsltAmt",
+       "description": "특수법인실적금액"
+      },
+      {
+       "name": "bssYear",
+       "description": "기준년도"
+      },
+      {
+       "name": "bssMnth",
+       "description": "기준월"
+      },
+      {
+       "name": "statDivNm",
+       "description": "통계구분명"
+      },
+      {
+       "name": "arsltSumNum",
+       "description": "실적합계건수"
+      },
+      {
+       "name": "arsltSumAmt",
+       "description": "실적합계금액"
+      },
+      {
+       "name": "cntryInsttArsltNum",
+       "description": "국가기관실적건수"
+      },
+      {
+       "name": "cntryInsttArsltAmt",
+       "description": "국가기관실적금액"
+      },
+      {
+       "name": "lcltyAutnGrpArsltNum",
+       "description": "지방자치단체실적건수"
+      },
+      {
+       "name": "lcltyAutnGrpArsltAmt",
+       "description": "지방자치단체실적금액"
+      },
+      {
+       "name": "eduAdministInsttArsltNum",
+       "description": "교육행정기관실적건수"
+      },
+      {
+       "name": "eduAdministInsttArsltAmt",
+       "description": "교육행정기관실적금액"
+      },
+      {
+       "name": "pblcorpArsltNum",
+       "description": "공기업실적건수"
+      },
+      {
+       "name": "pblcorpArsltAmt",
+       "description": "공기업실적금액"
+      },
+      {
+       "name": "quasiGovInsttArsltNum",
+       "description": "준정부기관실적건수"
+      },
+      {
+       "name": "quasiGovInsttArsltAmt",
+       "description": "준정부기관실적금액"
+      },
+      {
+       "name": "etcPubInsttArsltNum",
+       "description": "기타공공기관실적건수"
+      },
+      {
+       "name": "etcPubInsttArsltAmt",
+       "description": "기타공공기관실적금액"
+      },
+      {
+       "name": "lcltyPblcorpArsltNum",
+       "description": "지방공기업실적건수"
+      },
+      {
+       "name": "lcltyPblcorpArsltAmt",
+       "description": "지방공기업실적금액"
+      },
+      {
+       "name": "lcltyMdlcInsttArsltNum",
+       "description": "지방의료기관실적건수"
+      },
+      {
+       "name": "lcltyMdlcInsttArsltAmt",
+       "description": "지방의료기관실적금액"
+      },
+      {
+       "name": "lcltyAutnGrpDntRsrchArsltNum",
+       "description": "지방자치단체출연연구실적건수"
+      },
+      {
+       "name": "lcltyAutnGrpDntRsrchArsltAmt",
+       "description": "지방자치단체출연연구실적금액"
+      },
+      {
+       "name": "spclCorprtArsltNum",
+       "description": "특수법인실적건수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "kicox_factory",
+   "name": "한국산업단지공단_공장등록생산정보조회서비스",
+   "provider": "한국산업단지공단",
+   "data_url": "https://www.data.go.kr/data/15087611/openapi.do",
+   "base_url": "https://apis.data.go.kr/B550624/fctryRegistInfo",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "심의승인",
+   "dev_traffic": 1000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "등록공장의 고용인원, 주생산품, 업종, 산업단지(생산시설 보유 여부와 규모). 운영단계는 심의승인",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getFctryListInIrsttService_v2",
+     "path": "/getFctryListInIrsttService_v2",
+     "description": "등록공장 목록 생산정보 제공(산업단지명)",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": false,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": false,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "irsttNm",
+       "required": true,
+       "description": "산업단지명"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "fctryManageNo",
+       "description": "공장관리번호"
+      },
+      {
+       "name": "cmpnyNm",
+       "description": "회사명"
+      },
+      {
+       "name": "rnAdres",
+       "description": "도로명주소"
+      },
+      {
+       "name": "rprsntvNm",
+       "description": "대표자"
+      },
+      {
+       "name": "cvplChrgOrgnztNm",
+       "description": "행정기관"
+      },
+      {
+       "name": "cmpnyTelno",
+       "description": "회사전화번호"
+      },
+      {
+       "name": "cmpnyFxnum",
+       "description": "팩스번호"
+      },
+      {
+       "name": "allEmplyCo",
+       "description": "고용인원"
+      },
+      {
+       "name": "frstFctryRegistDe",
+       "description": "공장 등록일자"
+      },
+      {
+       "name": "indutyNm",
+       "description": "업종명"
+      },
+      {
+       "name": "mainProductCn",
+       "description": "주생산품"
+      },
+      {
+       "name": "hmpadr",
+       "description": "홈페이지"
+      },
+      {
+       "name": "rprsntvIndutyCode",
+       "description": "대표업종코드"
+      },
+      {
+       "name": "indutyCodes",
+       "description": "전체업종코드"
+      },
+      {
+       "name": "irsttNm",
+       "description": "산업단지명"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getFctryByFctryManageNoService_v2",
+     "path": "/getFctryByFctryManageNoService_v2",
+     "description": "등록공장 목록 생산정보 제공(공장관리번호)",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": false,
+       "description": "페이지번호(기본값:1)"
+      },
+      {
+       "name": "numOfRows",
+       "required": false,
+       "description": "한 페이지 결과 수(기본값:10)"
+      },
+      {
+       "name": "fctryManageNo",
+       "required": true,
+       "description": "factoryon.go.kr에서 사용되는 공장관리번호"
+      },
+      {
+       "name": "cmpnyNm",
+       "required": false,
+       "description": "회사명"
+      },
+      {
+       "name": "rprsntvNm",
+       "required": false,
+       "description": "등록된 대표자명"
+      },
+      {
+       "name": "mainProductCn",
+       "required": false,
+       "description": "주 생산품 항목"
+      },
+      {
+       "name": "adresCode",
+       "required": false,
+       "description": "법정동코드"
+      },
+      {
+       "name": "adres",
+       "required": false,
+       "description": "주소 텍스트"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "fctryManageNo",
+       "description": "공장관리번호"
+      },
+      {
+       "name": "cmpnyNm",
+       "description": "회사명"
+      },
+      {
+       "name": "rnAdres",
+       "description": "도로명주소"
+      },
+      {
+       "name": "rprsntvNm",
+       "description": "대표자"
+      },
+      {
+       "name": "cvplChrgOrgnztNm",
+       "description": "행정기관"
+      },
+      {
+       "name": "cmpnyTelno",
+       "description": "회사전화번호"
+      },
+      {
+       "name": "cmpnyFxnum",
+       "description": "팩스번호"
+      },
+      {
+       "name": "allEmplyCo",
+       "description": "고용인원"
+      },
+      {
+       "name": "frstFctryRegistDe",
+       "description": "공장 등록일자"
+      },
+      {
+       "name": "indutyNm",
+       "description": "업종명"
+      },
+      {
+       "name": "mainProductCn",
+       "description": "주생산품"
+      },
+      {
+       "name": "hmpadr",
+       "description": "홈페이지"
+      },
+      {
+       "name": "rprsntvIndutyCode",
+       "description": "대표업종코드"
+      },
+      {
+       "name": "indutyCodes",
+       "description": "전체업종코드"
+      },
+      {
+       "name": "irsttNm",
+       "description": "산업단지명"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getFctryPrdctnService_v2",
+     "path": "/getFctryPrdctnService_v2",
+     "description": "등록공장 목록 생산정보 제공(회사명)",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": false,
+       "description": "페이지번호(기본값:1)"
+      },
+      {
+       "name": "numOfRows",
+       "required": false,
+       "description": "한 페이지 결과 수(기본값:10)"
+      },
+      {
+       "name": "fctryManageNo",
+       "required": true,
+       "description": "factoryon.go.kr에서 사용되는 공장관리번호"
+      },
+      {
+       "name": "cmpnyNm",
+       "required": false,
+       "description": "회사명"
+      },
+      {
+       "name": "rprsntvNm",
+       "required": false,
+       "description": "등록된 대표자명"
+      },
+      {
+       "name": "mainProductCn",
+       "required": false,
+       "description": "주 생산품 항목"
+      },
+      {
+       "name": "adresCode",
+       "required": false,
+       "description": "법정동코드"
+      },
+      {
+       "name": "adres",
+       "required": false,
+       "description": "주소 텍스트"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "fctryManageNo",
+       "description": "공장관리번호"
+      },
+      {
+       "name": "cmpnyNm",
+       "description": "회사명"
+      },
+      {
+       "name": "rnAdres",
+       "description": "도로명주소"
+      },
+      {
+       "name": "rprsntvNm",
+       "description": "대표자"
+      },
+      {
+       "name": "cvplChrgOrgnztNm",
+       "description": "행정기관"
+      },
+      {
+       "name": "cmpnyTelno",
+       "description": "회사전화번호"
+      },
+      {
+       "name": "cmpnyFxnum",
+       "description": "팩스번호"
+      },
+      {
+       "name": "allEmplyCo",
+       "description": "고용인원"
+      },
+      {
+       "name": "frstFctryRegistDe",
+       "description": "공장 등록일자"
+      },
+      {
+       "name": "indutyNm",
+       "description": "업종명"
+      },
+      {
+       "name": "mainProductCn",
+       "description": "주생산품"
+      },
+      {
+       "name": "hmpadr",
+       "description": "홈페이지"
+      },
+      {
+       "name": "rprsntvIndutyCode",
+       "description": "대표업종코드"
+      },
+      {
+       "name": "indutyCodes",
+       "description": "전체업종코드"
+      },
+      {
+       "name": "irsttNm",
+       "description": "산업단지명"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "lookup_by": [
+      "company_name"
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "id_fields": {
+    "name": "cmpnyNm"
+   },
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "ftc_franchise_general",
+   "name": "공정거래위원회_가맹정보_가맹본부 일반 정보 상세 제공 서비스",
+   "provider": "공정거래위원회",
+   "data_url": "https://www.data.go.kr/data/15125450/openapi.do",
+   "base_url": "https://apis.data.go.kr/1130000/FftcJnghdqrtrsGnrlDtl3_Service",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "심의승인",
+   "dev_traffic": 10000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "가맹본부 일반정보(사업자등록번호·법인등록번호·대표자·브랜드). 외감 미만 프랜차이즈 본부까지 포함",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getjnghdqrtrsGnlinfo2",
+     "path": "/getjnghdqrtrsGnlinfo2",
+     "description": "가맹본부일반조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "jngBizCrtraYr",
+       "required": true,
+       "description": "가맹사업기준년도"
+      },
+      {
+       "name": "jnghdqrtrsMnno",
+       "required": false,
+       "description": "가맹본부관리번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "entScaleNm",
+       "description": "기업규모명"
+      },
+      {
+       "name": "hmpgUrladr",
+       "description": "홈페이지주소"
+      },
+      {
+       "name": "areaNm",
+       "description": "지역명"
+      },
+      {
+       "name": "jngBizCrtraYr",
+       "description": "가맹사업기준년도"
+      },
+      {
+       "name": "jnghdqrtrsMnno",
+       "description": "가맹본부관리번호"
+      },
+      {
+       "name": "jnghdqrtrsConmNm",
+       "description": "가맹본부 상호명"
+      },
+      {
+       "name": "brno",
+       "description": "사업자등록번호"
+      },
+      {
+       "name": "crno",
+       "description": "법인등록번호"
+      },
+      {
+       "name": "indvdlCorpSeCd",
+       "description": "개인법인구분코드 (10 : 개인, 11 : 법인)"
+      },
+      {
+       "name": "bzmnRgsDate",
+       "description": "사업자등록일자"
+      },
+      {
+       "name": "corpRgDate",
+       "description": "법인등기일자"
+      },
+      {
+       "name": "jnghdqrtrsRprsTelno",
+       "description": "가맹본부대표전화번호"
+      },
+      {
+       "name": "jnghdqrtrsRprsFxno",
+       "description": "가맹본부대표팩스번호"
+      },
+      {
+       "name": "jnghdqrtrsRprsvNm",
+       "description": "가맹본부대표자명"
+      },
+      {
+       "name": "jnghdqrtrsOzip",
+       "description": "가맹본부구우편번호"
+      },
+      {
+       "name": "lctnAddr",
+       "description": "소재지주소"
+      },
+      {
+       "name": "lctnDaddr",
+       "description": "소재지상세주소"
+      },
+      {
+       "name": "brandCnt",
+       "description": "브랜드수"
+      },
+      {
+       "name": "affltsCnt",
+       "description": "계열회사수"
+      },
+      {
+       "name": "jngInstNm",
+       "description": "가맹기관명"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "id_fields": {
+    "bizno": "brno",
+    "crno": "crno"
+   },
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "ftc_franchise_finance",
+   "name": "공정거래위원회_가맹정보_가맹본부 재무정보 제공 서비스",
+   "provider": "공정거래위원회",
+   "data_url": "https://www.data.go.kr/data/15125456/openapi.do",
+   "base_url": "https://apis.data.go.kr/1130000/FftcjnghdqrtrsFnnrInfo3_Service",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "심의승인",
+   "dev_traffic": 10000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "가맹본부 재무정보(자산·매출·영업이익). 공정위 공개값은 정확값이 아닌 범위값(편차 약 5%)이라 응답에 그 사실을 적을 것",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getjnghdqrtrsFnlttinfo2",
+     "path": "/getjnghdqrtrsFnlttinfo2",
+     "description": "가맹본부재무조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": true,
+       "description": "페이지번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": true,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "jngBizCrtraYr",
+       "required": true,
+       "description": "가맹사업기준년도"
+      },
+      {
+       "name": "jnghdqrtrsMnno",
+       "required": false,
+       "description": "가맹본부관리번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "fnlttWrtYn",
+       "description": "재무제표작성여부"
+      },
+      {
+       "name": "crrncyUnitCdNm",
+       "description": "화폐단위코드명"
+      },
+      {
+       "name": "jngBizCrtraYr",
+       "description": "가맹사업기준년도"
+      },
+      {
+       "name": "jnghdqrtrsMnno",
+       "description": "가맹본부관리번호"
+      },
+      {
+       "name": "acntgYr",
+       "description": "회계년도"
+      },
+      {
+       "name": "bizYrCrtraMm",
+       "description": "사업년도기준월"
+      },
+      {
+       "name": "assetsAmtScopeVal",
+       "description": "자산금액범위값 (편차 5%)"
+      },
+      {
+       "name": "caplAmtScopeVal",
+       "description": "자본금액범위값 (편차 5%)"
+      },
+      {
+       "name": "debtAmtScopeVal",
+       "description": "부채금액범위값 (편차 5%)"
+      },
+      {
+       "name": "slsAmtScopeVal",
+       "description": "매출금액범위값 (편차 5%)"
+      },
+      {
+       "name": "bsnProfitAmtScopeVal",
+       "description": "영업이익금액범위값 (편차 5%)"
+      },
+      {
+       "name": "thstrmNtpfAmtScopeVal",
+       "description": "당기순이익금액범위값 (편차 5%)"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "mfds_cosmetics",
+   "name": "식품의약품안전처_화장품 관련 정보",
+   "provider": "식품의약품안전처",
+   "data_url": "https://www.data.go.kr/data/15020628/openapi.do",
+   "base_url": "https://apis.data.go.kr/1471000/CsmtcsMfcrtrInfoService02",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "자동승인",
+   "dev_traffic": 10000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "화장품 제조업·책임판매업 등록 업체(사업자번호·소재지) 확인(뷰티 브랜드·OEM 인허가 보유)",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getCsmtcsMfcrtrInfoList02",
+     "path": "/getCsmtcsMfcrtrInfoList02",
+     "description": "화장품 제조(판매)업 정보조회",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": false,
+       "description": "페이지 번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": false,
+       "description": "한 페이지 결과수"
+      },
+      {
+       "name": "entp_name",
+       "required": false,
+       "description": "업체명"
+      },
+      {
+       "name": "entp_permit_date",
+       "required": false,
+       "description": "허가일자"
+      },
+      {
+       "name": "bizrno",
+       "required": false,
+       "description": "사업자등록번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "INDUTY",
+       "description": "업종"
+      },
+      {
+       "name": "ENTP_SEQ",
+       "description": "업체번호"
+      },
+      {
+       "name": "ENTP_NAME",
+       "description": "업체명"
+      },
+      {
+       "name": "ENTP_PERMIT_DATE",
+       "description": "허가일자"
+      },
+      {
+       "name": "FACTORY_ADDR",
+       "description": "본사주소"
+      },
+      {
+       "name": "BIZRNO",
+       "description": "사업자등록번호"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "id_fields": {
+    "bizno": "bizrno"
+   },
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "mfds_meddev_company",
+   "name": "식품의약품안전처_의료기기 통합업체 정보",
+   "provider": "식품의약품안전처",
+   "data_url": "https://www.data.go.kr/data/15117407/openapi.do",
+   "base_url": "https://apis.data.go.kr/1471000/MdeqItgrtEntpInfoService",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "심의승인",
+   "dev_traffic": 10000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "의료기기 제조·수입·판매 업체 통합 정보(사업자번호 BRNO) 확인",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getMdeqItgrtEntpInfoService",
+     "path": "/getMdeqItgrtEntpInfoService",
+     "description": "의료기기 통합업체 정보",
+     "params": [
+      {
+       "name": "pageNo",
+       "required": false,
+       "description": "페이지 번호"
+      },
+      {
+       "name": "numOfRows",
+       "required": false,
+       "description": "한 페이지 결과수"
+      },
+      {
+       "name": "BIZ_IPLA_NM",
+       "required": false,
+       "description": "사업장명"
+      },
+      {
+       "name": "INDT_DIVS_CD_NM",
+       "required": false,
+       "description": "업종구분"
+      },
+      {
+       "name": "PRMT_YMD",
+       "required": false,
+       "description": "인허가일자"
+      },
+      {
+       "name": "BRNO",
+       "required": false,
+       "description": "사업자등록번호"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "BIZ_IPLA_NM",
+       "description": "사업장명"
+      },
+      {
+       "name": "INDT_DIVS_CD_NM",
+       "description": "업종구분"
+      },
+      {
+       "name": "BIZ_IPLA_BASC_ADDR",
+       "description": "사업장기본주소"
+      },
+      {
+       "name": "BIZ_IPLA_DTL_ADDR",
+       "description": "사업장상세주소"
+      },
+      {
+       "name": "PRMT_YMD",
+       "description": "인허가일자"
+      },
+      {
+       "name": "PRMSN_INST",
+       "description": "허가기관"
+      },
+      {
+       "name": "BRNO",
+       "description": "사업자등록번호"
+      },
+      {
+       "name": "CLSBIZ_YMD",
+       "description": "폐업일자"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "id_fields": {
+    "bizno": "BRNO"
+   },
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
+  },
+  {
+   "id": "kised_startup_cert",
+   "name": "창업진흥원_창업기업확인서발급기업정보_조회서비스",
+   "provider": "창업진흥원",
+   "data_url": "https://www.data.go.kr/data/15125362/openapi.do",
+   "base_url": "https://apis.data.go.kr/B552735/kisedCertService01",
+   "method": "GET",
+   "key_param": "serviceKey",
+   "format_param": null,
+   "response_format": "XML",
+   "approval": "자동승인",
+   "approval_prod": "자동승인",
+   "dev_traffic": 10000,
+   "license": "이용허락범위 제한 없음",
+   "pe_use": "창업기업확인서 발급 기업정보와 제품정보(업력 7년 이내 기업)",
+   "key_status_2026_10_26": "not_registered",
+   "paging": {
+    "page": "pageNo",
+    "size": "numOfRows"
+   },
+   "operations": [
+    {
+     "id": "getCorporateInformation01",
+     "path": "/getCorporateInformation01",
+     "description": "창업기업확인서 발급 기업 정보",
+     "params": [
+      {
+       "name": "page",
+       "required": false,
+       "description": "페이지"
+      },
+      {
+       "name": "perPage",
+       "required": false,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "cond[confmdoc_isu_no::EQ]",
+       "required": false,
+       "description": "창업기업확인서 발급 번호"
+      },
+      {
+       "name": "cond[ntrp_type_nm::EQ]",
+       "required": false,
+       "description": "기업 구분(개인기업,법인기업)"
+      },
+      {
+       "name": "cond[ntrp_nm::LIKE]",
+       "required": false,
+       "description": "기업 명"
+      },
+      {
+       "name": "cond[brno::EQ]",
+       "required": false,
+       "description": "사업자등록번호"
+      },
+      {
+       "name": "cond[crno::EQ]",
+       "required": false,
+       "description": "법인등록번호"
+      },
+      {
+       "name": "cond[confmdoc_isu_dt::GTE]",
+       "required": false,
+       "description": "창업기업확인서 발급 일시 이상(yyyyMMdd)"
+      },
+      {
+       "name": "cond[confmdoc_expr_dt::LTE]",
+       "required": false,
+       "description": "창업기업확인서 만료 일시 이하(yyyyMMdd)"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "currentCount",
+       "description": "현재 페이지 결과 수"
+      },
+      {
+       "name": "unin_repr_nm",
+       "description": "공동 대표 명"
+      },
+      {
+       "name": "crno",
+       "description": "법인등록번호"
+      },
+      {
+       "name": "confmdoc_isu_dt",
+       "description": "창업기업확인서 발급 일시(yyyyMMdd)"
+      },
+      {
+       "name": "confmdoc_expr_dt",
+       "description": "창업기업확인서 만료 일시(yyyyMMdd)"
+      },
+      {
+       "name": "confmdoc_isu_no",
+       "description": "창업기업확인서 발급 번호"
+      },
+      {
+       "name": "ntrp_type_nm",
+       "description": "기업 구분"
+      },
+      {
+       "name": "ntrp_nm",
+       "description": "기업 명"
+      },
+      {
+       "name": "brno",
+       "description": "사업자등록번호"
+      },
+      {
+       "name": "repr_nm",
+       "description": "대표자 명"
+      },
+      {
+       "name": "matchCount",
+       "description": "데이터 응답 수"
+      },
+      {
+       "name": "page",
+       "description": "페이지"
+      },
+      {
+       "name": "perPage",
+       "description": "한 페이지 결과 수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    },
+    {
+     "id": "getProductInformation01",
+     "path": "/getProductInformation01",
+     "description": "창업기업확인서 발급 기업 제품 정보",
+     "params": [
+      {
+       "name": "page",
+       "required": false,
+       "description": "페이지번호"
+      },
+      {
+       "name": "perPage",
+       "required": false,
+       "description": "한 페이지 결과 수"
+      },
+      {
+       "name": "cond[ntrp_nm::LIKE]",
+       "required": false,
+       "description": "기업명"
+      },
+      {
+       "name": "cond[confmdoc_isu_no::EQ]",
+       "required": false,
+       "description": "창업기업확인서 발급 번호"
+      },
+      {
+       "name": "cond[brno::EQ]",
+       "required": false,
+       "description": "사업자등록번호"
+      },
+      {
+       "name": "cond[manu_nm::LIKE]",
+       "required": false,
+       "description": "제품명"
+      },
+      {
+       "name": "cond[confmdoc_isu_dt::GTE]",
+       "required": false,
+       "description": "창업기업확인서 발급 일시 이상(yyyyMMdd)"
+      },
+      {
+       "name": "cond[confmdoc_expr_dt::LTE]",
+       "required": false,
+       "description": "창업기업확인서 만료 일시 이하(yyyyMMdd)"
+      },
+      {
+       "name": "cond[manu_category::EQ]",
+       "required": false,
+       "description": "제품 분류"
+      },
+      {
+       "name": "cond[manu_lclss::LIKE]",
+       "required": false,
+       "description": "제품 대분류"
+      },
+      {
+       "name": "cond[manu_mclss::LIKE]",
+       "required": false,
+       "description": "제품 중분류"
+      },
+      {
+       "name": "cond[manu_sclss::LIKE]",
+       "required": false,
+       "description": "제품 소분류"
+      }
+     ],
+     "response_fields": [
+      {
+       "name": "currentCount",
+       "description": "현재 페이지 결과 수"
+      },
+      {
+       "name": "lwdg_nm",
+       "description": "기업 법정동 지역"
+      },
+      {
+       "name": "manu_nm",
+       "description": "제품 명"
+      },
+      {
+       "name": "confmdoc_isu_dt",
+       "description": "창업기업확인서 발급 일시(yyyyMMdd)"
+      },
+      {
+       "name": "confmdoc_expr_dt",
+       "description": "창업기업확인서 만료 일시(yyyyMMdd)"
+      },
+      {
+       "name": "hmpg",
+       "description": "제품 URL"
+      },
+      {
+       "name": "ntrp_nm",
+       "description": "기업 명"
+      },
+      {
+       "name": "confmdoc_isu_no",
+       "description": "창업기업확인서 발급 번호"
+      },
+      {
+       "name": "brno",
+       "description": "사업자등록번호"
+      },
+      {
+       "name": "matchCount",
+       "description": "데이터 응답 수"
+      },
+      {
+       "name": "page",
+       "description": "페이지"
+      },
+      {
+       "name": "perPage",
+       "description": "한 페이지 결과 수"
+      }
+     ],
+     "test_calls": [
+      {
+       "result": "not_registered",
+       "http": 403,
+       "query": "pageNo=1&numOfRows=1",
+       "date": "2026-11-03"
+      }
+     ],
+     "verified_2026_10_26": "not_registered"
+    }
+   ],
+   "added": "2026-11-03 (비상장·외감 보강)",
+   "id_fields": {
+    "bizno": "brno",
+    "crno": "crno"
+   },
+   "approval_note": "2026-11-03 서버 키로 호출 시 SERVICE_KEY_IS_NOT_REGISTERED_ERROR(403). data.go.kr에서 활용신청 후 사용"
   }
  ]
 }

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "k-deal-skill": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/local/launch.mjs"],
+      "env": {
+        "DART_API_KEY": "${DART_API_KEY:-}",
+        "KRX_API_KEY": "${KRX_API_KEY:-}",
+        "DATA_GO_KR_KEY": "${DATA_GO_KR_KEY:-}",
+        "DATA_GO_KR_KEY_ENC": "${DATA_GO_KR_KEY_ENC:-}",
+        "LAW_OC": "${LAW_OC:-}",
+        "MRM_DATAGO_DB": "${MRM_DATAGO_DB:-}"
+      }
+    }
+  }
+}

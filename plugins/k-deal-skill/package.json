@@ -1,0 +1,17 @@
+{
+  "name": "k-deal-skill",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "한국 기업·딜 리서치용 공식 원천(DART·KRX·법제처·data.go.kr) 조회 MCP. 내 PC에서 내 API 키로 실행",
+  "scripts": {
+    "test": "node --disable-warning=ExperimentalWarning --test core/*.test.mjs local/*.test.mjs",
+    "start": "node --disable-warning=ExperimentalWarning local/stdio.mjs"
+  },
+  "dependencies": {
+    "fast-xml-parser": "5.11.2"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}
