@@ -10,12 +10,10 @@
 
 ## 관련 저장소
 
-운영자 서버판은 별도 비공개 저장소다. 로컬 경로는 작업 PC마다 다르므로 사용자에게 확인한다. 실행할 때 서로의 코드를 쓰지 않지만 아래 파일은 서버판에 사본이나 같은 로직이 있다. 고치면 서버판도 확인한다(README 7장 표).
+운영자 서버판은 별도 비공개 저장소다. 로컬 경로는 작업 PC마다 다르므로 사용자에게 확인한다. 실행할 때 서로의 코드를 쓰지 않는다. 서버판의 워크스페이스용 스킬은 서버 도구만 쓰는 설명서라 이 저장소의 사본이 아니다. 아래 파일만 서버판에 같은 로직이나 같은 파일이 있어, 고치면 서버판도 확인한다(README 7장 표).
 
 - `korean-law-search/scripts/law_fetch.py` ↔ 서버 `server/law-direct.mjs`: 같은 동작, 양쪽 테스트 추가
-- `korean-law-search/scripts/mcp_http.py` ↔ 서버 `plugin/` 사본: `clientInfo` 이름 줄만 다르게 유지
 - `references/law-apis.json`, `references/datago-apis.json` ↔ 서버 `server/catalog/`: 같은 파일
-- `*/scripts/source_credentials.py`, `*_fetch.py` ↔ 서버 `plugin/` 사본
 
 `/law` 응답 형식을 바꾸는 작업은 서버를 먼저 고쳐 배포한 뒤 이 저장소를 배포한다.
 
