@@ -1,12 +1,12 @@
 # k-deal-skill
 
-한국 기업·딜 리서치에 쓰는 공식 원천자료를 Claude Code·Codex 같은 AI 코딩 도구에서 조회하게 해 주는 무료 스킬 묶음입니다. 대상 자료는 DART 공시·재무제표, KRX 시세, 금융위·관세청·국세청 공공데이터, 법제처 법령·판례입니다. 별도 서버 없이 각자 PC에서 돌고, API 키도 각자 발급해 각자 PC에 둡니다.
+한국 기업·딜 리서치에 쓰는 공식 원천자료를 Claude Code·Codex 같은 AI 코딩 도구에서 조회하게 해 주는 무료 스킬 묶음입니다. 대상 자료는 DART 공시·재무제표, KRX 시세, 금융위·관세청·국세청 공공데이터, 법제처 법령·판례입니다. 별도 서버 없이 각자 PC에서 실행되고, API 키도 각자 발급해 각자 PC에 둡니다.
 
 ## 시작 전 준비사항
 
 **필요한 것**
 
-- 내 PC에서 돌아가는 AI 코딩 도구: Claude Code(터미널, 데스크톱 앱 Code 탭, VS Code) 또는 Codex
+- 내 PC에서 실행되는 AI 코딩 도구: Claude Code(터미널, 데스크톱 앱 Code 탭, VS Code) 또는 Codex
 - Python 3.10 이상: 터미널에서 `python3 --version`으로 확인합니다. 추가 패키지 설치는 필요 없습니다.
 - 쓰려는 자료원의 API 키: 모두 무료입니다. 필요한 것만 받으면 되고, 받는 방법은 [3장](#3-준비-api-키-발급)에 있습니다.
 
@@ -19,9 +19,9 @@
 | `DATA_GO_KR_KEY` | korean-public-data | data.go.kr 일반 인증키 **디코딩** 값 | 금융위·관세청·국세청·data.go.kr 조회 불가 |
 | `DATA_GO_KR_KEY_ENC` | korean-public-data | 위 키의 **인코딩** 값. 둘 중 하나만 넣으면 되고, 둘 다 있으면 이 값을 씀 | 위와 같음 |
 | `LAW_OC` | korean-law-search | 법제처 OC(신청 때 정한 아이디). 신청서에 이 PC의 공인 IP를 등록해야 함 | 공용 법령 연결(`/law`)로 조회. 연결 주소가 없으면 OC 발급 안내 |
-| `K_DEAL_LAW_ENDPOINT` | korean-law-search | 공용 법령 연결 주소 대신 쓸 `https://<호스트>/law`. 직접 서버를 띄운 경우만 | 스크립트에 적힌 기본 주소를 씀 |
+| `K_DEAL_LAW_ENDPOINT` | korean-law-search | 공용 법령 연결 주소 대신 쓸 `https://<호스트>/law`. 서버를 직접 운영할 때만 | 스크립트에 적힌 기본 주소를 씀 |
 
-다른 MCP 설정 파일에 이미 키가 있다면 환경값 대신 그 파일 경로만 등록할 수도 있습니다([3장](#3-준비-api-키-발급) 끝). 넣은 뒤에는 [5장](#5-써-보기)의 `env-status` 명령으로 키가 잡혔는지 확인합니다. 이 명령은 키 값을 보여 주지 않고 있음·없음만 알려 줍니다.
+다른 MCP 설정 파일에 이미 키가 있다면 환경값 대신 그 파일 경로만 등록할 수도 있습니다([3장](#3-준비-api-키-발급) 끝). 넣은 뒤에는 [5장](#5-써-보기)의 `env-status` 명령으로 키가 인식됐는지 확인합니다. 이 명령은 키 값을 보여 주지 않고 있음·없음만 알려 줍니다.
 
 ## 목차
 
@@ -42,14 +42,14 @@
 **접근.** 스킬은 두 부분으로 이뤄집니다.
 
 - **설명서(`SKILL.md`)**: AI에게 어떤 순서로 조회하고 출처를 어떻게 적을지 알려 줍니다.
-- **스크립트(Python)**: 기관 공식 API를 실제로 부릅니다.
+- **스크립트(Python)**: 기관 공식 API를 실제로 호출합니다.
 
 AI가 질문을 받으면 스크립트를 실행해 원문을 가져오고, 원천 주소·기준일·조회 시각을 붙여 답합니다.
 
 **원칙.**
 
-- 기관 공식 API만 부릅니다.
-- "결과 없음"과 "오류"를 구분합니다. 승인 안 된 서비스, 한도 초과, 인증 실패를 0건으로 바꾸지 않습니다.
+- 기관 공식 API만 호출합니다.
+- "결과 없음"과 "오류"를 구분합니다. 승인 안 된 서비스, 한도 초과, 인증 실패를 "결과 없음"으로 바꾸지 않습니다.
 - 키 값은 화면이나 결과에 출력하지 않습니다.
 - Python 3.10 이상 표준 라이브러리만 씁니다. 추가 설치가 필요 없습니다.
 
@@ -73,14 +73,14 @@ AI가 질문을 받으면 스크립트를 실행해 원문을 가져오고, 원�
 
 ## 3. 준비: API 키 발급
 
-키 네 종류는 모두 무료입니다. 필요한 것만 받아도 됩니다. 키가 없는 스킬은 "키를 설정하라"는 안내만 하고 다른 스킬은 정상 동작합니다.
+키 네 종류는 모두 무료입니다. 필요한 것만 받아도 됩니다. 키가 없으면 해당 스킬만 "키를 설정하라"고 안내하고, 나머지 스킬은 그대로 쓸 수 있습니다.
 
 | 자료원 | 신청처 | 알아둘 점 |
 |---|---|---|
-| OpenDART | [opendart.fss.or.kr](https://opendart.fss.or.kr/) → 인증키 신청 | 즉시 발급. 하루 20,000건. 짧은 시간에 몰아 부르면 IP가 약 1시간 차단됩니다 |
+| OpenDART | [opendart.fss.or.kr](https://opendart.fss.or.kr/) → 인증키 신청 | 즉시 발급. 하루 20,000건. 짧은 시간에 한꺼번에 많이 호출하면 IP가 약 1시간 차단됩니다 |
 | KRX Open API | [openapi.krx.co.kr](https://openapi.krx.co.kr/) → 회원가입 → 인증키 신청 → 서비스별 이용신청 | 서비스마다 따로 승인을 받아야 합니다. 약관상 비상업적 이용만 가능합니다 |
 | 공공데이터포털 | [data.go.kr](https://www.data.go.kr/) → 쓰려는 서비스마다 활용신청 | 키 하나로 승인받은 서비스만 호출됩니다. 개발계정은 하루 100건인 서비스도 있습니다 |
-| 법제처 | [open.law.go.kr](https://open.law.go.kr/) → OPEN API 신청 | 신청할 때 **조회할 PC의 공인 IP**를 등록합니다. 다른 곳(카페, 집)에서 부르면 거절됩니다. 없어도 법령 조회는 됩니다(아래) |
+| 법제처 | [open.law.go.kr](https://open.law.go.kr/) → OPEN API 신청 | 신청할 때 **조회할 PC의 공인 IP**를 등록합니다. 등록하지 않은 곳(카페, 집 등)에서 호출하면 거절됩니다. 없어도 법령 조회는 됩니다(아래) |
 
 받은 키는 셸 설정 파일(macOS는 보통 `~/.zshrc`)에 넣고 터미널을 새로 엽니다. 각 이름의 뜻은 [시작 전 준비사항](#시작-전-준비사항) 표에 있습니다.
 
@@ -131,16 +131,16 @@ git clone https://github.com/maybedy/k_deal_skill.git && cp -R k_deal_skill/plug
 
 같은 이름의 스킬이 이미 `~/.codex/skills/`에 있으면 덮어쓰지 말고 이름을 바꿔 넣습니다.
 
-**ChatGPT·Codex 워크스페이스 관리자**는 두 가지 중 하나를 씁니다.
+**ChatGPT·Codex 워크스페이스 관리자**는 아래 두 방법 중 하나로 배포합니다.
 
-- `.agents/plugins/marketplace.json`을 씁니다.
-- `python3 tools/package.py`로 만든 ZIP을 올립니다.
+- `.agents/plugins/marketplace.json`으로 마켓플레이스 등록
+- `python3 tools/package.py`로 만든 ZIP 업로드
 
-이 경우에도 스크립트는 키를 넣을 수 있는 코드 실행 환경에서만 돕니다.
+이 경우에도 스크립트는 키를 넣을 수 있는 코드 실행 환경에서만 실행됩니다.
 
 ## 5. 써 보기
 
-**설정 확인.** 네트워크 호출 없이 키가 잡혔는지만 봅니다. 저장소 폴더에서 실행합니다.
+**설정 확인.** 네트워크 호출 없이 키가 인식됐는지만 확인합니다. 저장소 폴더에서 실행합니다.
 
 ```bash
 python3 plugins/k-deal-skill/skills/korean-dart-research/scripts/dart_fetch.py env-status
@@ -166,7 +166,7 @@ python3 plugins/k-deal-skill/skills/korean-law-search/scripts/law_fetch.py env-s
 
 | 증상 | 원인 | 조치 |
 |---|---|---|
-| AI가 스킬을 안 쓰고 기억으로 답함 | 플러그인 미설치, 재시작 안 함 | `claude plugin list`로 확인, Claude Code 재시작. 질문에 "DART에서 조회해서"처럼 자료원을 적기 |
+| AI가 스킬을 안 쓰고 기억으로 답함 | 플러그인 미설치, 재시작 안 함 | `claude plugin list`로 확인, Claude Code 재시작. 질문에 "DART에서 조회해서"처럼 자료원을 명시 |
 | 키를 넣었는데 `not_connected` | 터미널·앱을 다시 열지 않음, 오타 | 새 터미널에서 `env-status` 확인. 데스크톱 앱은 완전히 종료 후 재실행 |
 | `python3: command not found` 또는 문법 오류 | Python 없음, 3.10 미만 | `python3 --version` 확인 후 3.10 이상 설치 |
 | 웹 대화창에서 "네트워크에 접근할 수 없다" | 샌드박스 외부 접속 제한 | Claude Code·Codex 같은 로컬 도구 사용 |
@@ -176,18 +176,18 @@ python3 plugins/k-deal-skill/skills/korean-law-search/scripts/law_fetch.py env-s
 | 자료원 | 증상 | 조치 |
 |---|---|---|
 | DART | `dart_020` | 그 키의 하루 한도 초과. 자정 이후 재시도 |
-| DART | 연결 끊김, 응답 없음 | 몰아 부르기로 IP 차단(최대 약 1시간). **20분 이상 기다린 뒤** 한 번만 확인. 재시도가 차단을 늘림 |
-| DART | 회사를 못 찾음 | 고유번호(8자리)·종목코드(6자리)로 다시. 비상장사는 정확한 법인명으로 |
+| DART | 연결 끊김, 응답 없음 | 단시간 대량 호출로 IP 차단(최대 약 1시간). **20분 이상 기다린 뒤** 한 번만 확인. 재시도하면 차단 시간이 늘어남 |
+| DART | 회사를 못 찾음 | 고유번호(8자리)·종목코드(6자리)로 다시 조회. 비상장사는 정확한 법인명으로 검색 |
 | KRX | `not_approved` | 그 서비스의 이용신청 미승인. openapi.krx.co.kr 마이페이지에서 서비스별 신청 |
-| KRX | 결과 0건 | 휴장일이거나 그날 자료가 아직 없음. 직전 영업일로 다시 |
+| KRX | 결과 0건 | 휴장일이거나 그날 자료가 아직 없음. 직전 영업일로 다시 조회 |
 | data.go.kr | `public_data_error`, 인증 오류 | 그 서비스 활용신청이 승인되지 않았거나 키를 인코딩값으로 넣음. `DATA_GO_KR_KEY`에는 디코딩값 |
 | data.go.kr | 하루 100건에서 막힘 | 개발계정 한도. 운영계정 전환 신청 |
 | 법제처 | `law_api_rejected`, `law_api_non_json` | 지금 PC의 공인 IP가 OC 신청 때 등록한 IP와 다름. open.law.go.kr에서 IP 추가 |
-| 법제처 | `not_found` | 법령·판례 번호가 틀렸거나 그 기준일에 시행된 판이 없음. 검색부터 다시 |
-| 법제처 | "OC를 발급하라" 안내 | OC 없음 + 공용 법령 연결 주소 없음. OC를 발급하거나 서버 공개 후 업데이트 |
+| 법제처 | `not_found` | 법령·판례 번호가 틀렸거나 그 기준일에 시행 중인 법령 버전이 없음. 검색부터 다시 |
+| 법제처 | "OC를 발급하라" 안내 | OC 없음 + 공용 법령 연결 주소 없음. OC를 발급하거나, 공용 연결 주소가 생긴 뒤 스킬 업데이트 |
 | 법제처 | HTTP 429 | 공용 법령 연결의 IP별 한도 초과. 잠시 뒤 재시도하거나 OC 발급 |
 
-오류는 "자료가 없다"는 뜻이 아닙니다. AI가 오류를 0건으로 요약하면 원문 오류를 다시 보여 달라고 요청합니다.
+오류는 "자료가 없다"는 뜻이 아닙니다. AI가 오류를 "결과 없음"으로 요약하면 원문 오류를 다시 보여 달라고 요청합니다.
 
 ## 7. 유지보수
 
@@ -211,8 +211,8 @@ python3 -m unittest discover -s tests
 python3 tools/package.py
 ```
 
-- 테스트 74개는 네트워크·실제 키 없이 돕니다.
-- GitHub에 올리면 같은 검사가 자동으로 돕니다(`.github/workflows/validate.yml`).
+- 테스트 74개는 네트워크·실제 키 없이 실행됩니다.
+- GitHub에 올리면 같은 검사가 자동으로 실행됩니다(`.github/workflows/validate.yml`).
 - 실제 기관 호출로 확인했다면 날짜와 함께 [docs/acceptance.md](docs/acceptance.md)나 커밋 메시지에 적습니다.
 - AI 에이전트로 작업할 때 지켜야 할 규칙은 [AGENTS.md](AGENTS.md)에 있습니다.
 
@@ -226,7 +226,7 @@ python3 tools/package.py
 | `korean-law-search/scripts/mcp_http.py` | 플러그인 사본 (클라이언트 이름 줄만 다름) |
 | `*/scripts/source_credentials.py` | 플러그인 사본 (제품 이름만 다름) |
 | `references/law-apis.json`, `references/datago-apis.json` | 서버 카탈로그 (같은 파일) |
-| `dart_fetch.py`, `krx_fetch.py`, `api_fetch.py` | 플러그인 사본 (이미 갈라짐. 공개판이 앞섬) |
+| `dart_fetch.py`, `krx_fetch.py`, `api_fetch.py` | 플러그인 사본 (이름만 다름. 서버판 `api_fetch.py`에는 로컬 스냅샷 검색이 더 있음) |
 
 ## 8. 기술 상세
 
